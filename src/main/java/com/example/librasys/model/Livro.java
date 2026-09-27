@@ -18,7 +18,7 @@ public class Livro {
     @NotBlank(message = "Você deve informar a categoria")
     private String categoria;
 
-    @Positive
+    @Positive (message = "O ano de publicação não pode ser um número nulo ou negativo")
     @NotNull (message = "O ano de publicação não pode ser nula/vazia")
     private int anoPublicacao;
 

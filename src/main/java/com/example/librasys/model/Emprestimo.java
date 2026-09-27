@@ -76,4 +76,12 @@ public class Emprestimo {
     public LocalTime getDataPrevistaDevolucao() {
         return dataPrevistaDevolucao;
     }
+
+    public Situacao getStatus() {
+            return  status;
+    }
+
+    public void setStatus(Situacao status) {
+        this.status = status;
+    }
 }
