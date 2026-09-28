@@ -24,7 +24,7 @@ public class ExemplarService {
         return exemplarRepository.findById(idExemplar).orElseThrow(() -> new AtributoException("Não foi possível encontrar o exemplar por ID"));
     }
 
-    public Exemplar buscarExemplarPorSituacao(Status status){
+    public Exemplar buscarExemplarPorStatus(Status status){
         return exemplarRepository.findByStatus(status).orElseThrow(() -> new EnumException("Não foi possível encontrar o exemplar pelo status"));
     }
 
@@ -42,14 +42,14 @@ public class ExemplarService {
         return exemplarRepository.save(exemplarAtualizado);
     }
 
-    public void deletarExemplarPorId(Integer id){
+    public Exemplar deletarExemplarPorId(int id){
         buscarExemplarPorId(id);
-        exemplarRepository.deleteById(id);
+        return exemplarRepository.deleteById(id);
     }
 
-    public void deletarExemplarPorSituacao(Status status){
-        buscarExemplarPorSituacao(status);
-        exemplarRepository.deleteByStatus(status);
+    public Exemplar deletarExemplarPorStatus(Status status){
+        buscarExemplarPorStatus(status);
+        return exemplarRepository.deleteByStatus(status);
     }
 
     public void validarExemplar(Exemplar exemplar) {}

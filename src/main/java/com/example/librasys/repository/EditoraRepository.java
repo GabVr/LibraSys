@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface EditoraRepository extends JpaRepository<Editora, Integer> {
 
     Optional<Editora> findByNome(String nome);
-    void deleteById(Integer id);
+    Editora deleteById(int id);
     boolean existsByNome(String nome);
     List<Editora> findAll();
     Optional<Editora> findById(Integer id);

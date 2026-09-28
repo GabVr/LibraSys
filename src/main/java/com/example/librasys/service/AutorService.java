@@ -47,9 +47,9 @@ public class AutorService {
         return autorRepository.save(autorAtualizadoSalvo);
     }
 
-    public void deletarAutorPorId(Integer idAutor) {
+    public Autor deletarAutorPorId(int idAutor) {
         buscarAutorPorId(idAutor);
-        autorRepository.deleteById(idAutor);
+        return autorRepository.deleteById(idAutor);
     }
 
     public void validarAutor(Autor autor) {

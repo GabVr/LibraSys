@@ -30,9 +30,19 @@ public class LivroService {
         return livroRepository.findbyTitulo(titulo).orElseThrow(() -> new AtributoException("Não foi possível encontrar o seu livro por titulo"));
     }
 
-    public void deletarLivroPorId(Integer id){
+    public Livro atualizarLivroPorId(Integer id,  Livro livroDadosAtualizados) {
+        Livro livroAtualizado = buscarLivroPorId(id);
+
+        livroAtualizado.setTitulo(livroDadosAtualizados.getTitulo());
+        livroAtualizado.setEditora(livroDadosAtualizados.getEditora());
+        livroAtualizado.setCategoria(livroDadosAtualizados.getCategoria());
+
+        return livroRepository.save(livroAtualizado);
+    }
+
+    public Livro deletarLivroPorId(int id){
         buscarLivroPorId(id);
-        livroRepository.deleteById(id);
+        return livroRepository.deleteById(id);
     }
 
     public void validarLivro(Livro livro) {}

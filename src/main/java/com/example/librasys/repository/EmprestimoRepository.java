@@ -16,10 +16,9 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Integer>
     List<Emprestimo> findAll();
     Optional<Emprestimo> findById(Integer id);
 
-    @Override
-    void deleteById(Integer id);
+    Emprestimo deleteById(int id);
 
     Optional<Emprestimo> findBySituacao(Situacao situacao);
 
-    void deleteBySituacao(Situacao situacao);
+    Emprestimo deleteBySituacao(Situacao situacao);
 }

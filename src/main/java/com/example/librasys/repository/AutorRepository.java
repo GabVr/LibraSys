@@ -16,6 +16,5 @@ public interface AutorRepository extends JpaRepository<Autor, Integer> {
     @Override
     List<Autor> findAll();
 
-    @Override
-    void deleteById(Integer id);
+    Autor deleteById(int id);
 }
