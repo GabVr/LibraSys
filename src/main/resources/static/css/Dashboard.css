@@ -1,0 +1,352 @@
+
+/* =========================
+   CONFIGURAÇÕES GERAIS
+========================= */
+
+:root {
+    --azul: #0d47a1;
+    --azul-escuro: #082b63;
+    --azul-claro: #e8f1ff;
+    --fundo: #f5f7fb;
+    --texto: #1d2939;
+    --texto-secundario: #667085;
+}
+
+body {
+    background-color: var(--fundo);
+    color: var(--texto);
+    min-height: 100vh;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    width: 260px;
+    height: 100vh;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background: linear-gradient(
+            180deg,
+            var(--azul),
+            var(--azul-escuro)
+    );
+
+    color: white;
+
+    padding: 25px 15px;
+
+    z-index: 1000;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.logo-icon {
+    font-size: 38px;
+}
+
+.logo h3 {
+    margin: 5px 0 0;
+    font-weight: 600;
+}
+
+.logo span {
+    font-size: 12px;
+    opacity: .7;
+}
+
+
+/* Títulos do menu */
+
+.menu-title {
+    font-size: 11px;
+    text-transform: uppercase;
+
+    opacity: .55;
+
+    margin: 25px 10px 8px;
+}
+
+
+/* Links */
+
+.sidebar .nav-link {
+    color: rgba(255,255,255,.8);
+
+    padding: 11px 14px;
+
+    border-radius: 8px;
+
+    margin-bottom: 4px;
+
+    transition: .2s;
+}
+
+.sidebar .nav-link:hover {
+    background-color: rgba(255,255,255,.12);
+    color: white;
+}
+
+.sidebar .nav-link.active {
+    background-color: rgba(255,255,255,.18);
+    color: white;
+}
+
+.sidebar .nav-link i {
+    width: 25px;
+    margin-right: 5px;
+}
+
+
+/* =========================
+   CONTEÚDO
+========================= */
+
+.main-content {
+    margin-left: 260px;
+    padding: 30px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.page-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+.page-header h2 {
+    font-weight: 600;
+    margin: 0;
+}
+
+.page-header p {
+    color: var(--texto-secundario);
+    margin: 5px 0 0;
+}
+
+
+/* Usuário */
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar {
+    width: 44px;
+    height: 44px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--azul-claro);
+    color: var(--azul);
+
+    font-size: 20px;
+}
+
+
+/* =========================
+   CARDS DE ESTATÍSTICAS
+========================= */
+
+.stat-card {
+    background: white;
+
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 20px;
+
+    box-shadow: 0 2px 10px rgba(0,0,0,.05);
+
+    height: 100%;
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--azul-claro);
+    color: var(--azul);
+
+    font-size: 21px;
+}
+
+.stat-title {
+    color: var(--texto-secundario);
+
+    font-size: 14px;
+
+    margin-bottom: 5px;
+}
+
+.stat-number {
+    font-size: 27px;
+    font-weight: 600;
+}
+
+
+/* =========================
+   CARDS DE CONTEÚDO
+========================= */
+
+.content-card {
+    background: white;
+
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 22px;
+
+    box-shadow: 0 2px 10px rgba(0,0,0,.05);
+}
+
+.content-card h5 {
+    font-weight: 600;
+}
+
+
+/* =========================
+   TABELAS
+========================= */
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    color: var(--texto-secundario);
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    border-bottom-width: 1px;
+}
+
+.table td {
+    vertical-align: middle;
+
+    font-size: 14px;
+
+    padding: 14px 8px;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status {
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 500;
+}
+
+.status-ativo {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.status-atrasado {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.status-disponivel {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.status-emprestado {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+}
+
+.status-manutencao {
+    background-color: #fef3c7;
+    color: #b45309;
+}
+
+
+/* =========================
+   BOTÕES
+========================= */
+
+.btn-primary {
+    background-color: var(--azul);
+    border-color: var(--azul);
+}
+
+.btn-primary:hover {
+    background-color: var(--azul-escuro);
+    border-color: var(--azul-escuro);
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 992px) {
+
+    .sidebar {
+        width: 220px;
+    }
+
+    .main-content {
+        margin-left: 220px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        position: relative;
+
+        width: 100%;
+        height: auto;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+}

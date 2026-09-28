@@ -1,10 +1,537 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Exemplares - LibraSys</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+
+    <link th:href="@{/css/Exemplares.css}" href="/static/css/Exemplares.css"  rel="stylesheet" type="text/css">
 </head>
+
 <body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="logo">
+        <i class="bi bi-book-half"></i>
+        LibraSys
+    </div>
+
+    <div class="menu-title">
+        Principal
+    </div>
+
+    <a href="/dashboard">
+        <i class="bi bi-grid-1x2-fill"></i>
+        Dashboard
+    </a>
+
+    <a href="/livros">
+        <i class="bi bi-book"></i>
+        Livros
+    </a>
+
+    <a href="/exemplares" class="active">
+        <i class="bi bi-collection"></i>
+        Exemplares
+    </a>
+
+    <a href="/usuarios">
+        <i class="bi bi-people"></i>
+        Usuários
+    </a>
+
+    <a href="/autores">
+        <i class="bi bi-person-vcard"></i>
+        Autores
+    </a>
+
+    <a href="/editoras">
+        <i class="bi bi-building"></i>
+        Editoras
+    </a>
+
+    <a href="/emprestimos">
+        <i class="bi bi-arrow-left-right"></i>
+        Empréstimos
+    </a>
+
+    <div class="logout">
+
+        <a href="/logout">
+            <i class="bi bi-box-arrow-left"></i>
+            Sair
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+    <!-- HEADER -->
+
+    <div class="page-header">
+
+        <div>
+            <h2>Exemplares</h2>
+
+            <p>
+                Gerencie os exemplares físicos disponíveis na biblioteca.
+            </p>
+        </div>
+
+        <div class="user-info">
+
+            <div>
+                <strong>Gabriel Silva</strong>
+
+                <small class="d-block text-muted">
+                    Bibliotecário
+                </small>
+            </div>
+
+            <div class="user-icon">
+                <i class="bi bi-person"></i>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <div class="content-card">
+
+        <!-- FILTERS -->
+
+        <div class="filters">
+
+            <div class="search-box">
+
+                <i class="bi bi-search"></i>
+
+                <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Buscar por patrimônio ou livro..."
+                >
+
+            </div>
+
+            <select class="form-select" style="max-width: 200px;">
+
+                <option value="">
+                    Todos os status
+                </option>
+
+                <option value="DISPONIVEL">
+                    Disponível
+                </option>
+
+                <option value="EMPRESTADO">
+                    Emprestado
+                </option>
+
+                <option value="MANUTENCAO">
+                    Manutenção
+                </option>
+
+            </select>
+
+            <button
+                    class="btn btn-primary px-4"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalExemplar">
+
+                <i class="bi bi-plus-lg"></i>
+                Novo exemplar
+
+            </button>
+
+        </div>
+
+
+        <!-- TABLE -->
+
+        <div class="table-responsive">
+
+            <table class="table">
+
+                <thead>
+
+                <tr>
+
+                    <th>Patrimônio</th>
+
+                    <th>Livro</th>
+
+                    <th>ISBN</th>
+
+                    <th>Status</th>
+
+                    <th class="text-end">Ações</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr th:each="exemplar : ${exemplares}">
+
+                    <!-- PATRIMÔNIO -->
+
+                    <td>
+
+                        <span class="patrimonio"
+                              th:text="${exemplar.codigoPatrimonio}">
+                            EX-000001
+                        </span>
+
+                    </td>
+
+
+                    <!-- LIVRO -->
+
+                    <td>
+
+                        <div class="book-title"
+                             th:text="${exemplar.livro.titulo}">
+                            Dom Casmurro
+                        </div>
+
+                    </td>
+
+
+                    <!-- ISBN -->
+
+                    <td>
+
+                        <span th:text="${exemplar.livro.isbn}">
+                            9788535902778
+                        </span>
+
+                    </td>
+
+
+                    <!-- STATUS -->
+
+                    <td>
+
+                        <span
+                                th:if="${exemplar.status == T(com.librasys.model.StatusExemplar).DISPONIVEL}"
+                                class="status status-disponivel">
+
+                            <i class="bi bi-check-circle-fill"></i>
+                            Disponível
+
+                        </span>
+
+
+                        <span
+                                th:if="${exemplar.status == T(com.librasys.model.StatusExemplar).EMPRESTADO}"
+                                class="status status-emprestado">
+
+                            <i class="bi bi-clock-fill"></i>
+                            Emprestado
+
+                        </span>
+
+
+                        <span
+                                th:if="${exemplar.status == T(com.librasys.model.StatusExemplar).MANUTENCAO}"
+                                class="status status-manutencao">
+
+                            <i class="bi bi-tools"></i>
+                            Manutenção
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- ACTIONS -->
+
+                    <td class="text-end">
+
+                        <button
+                                class="action-btn action-view"
+                                title="Visualizar">
+
+                            <i class="bi bi-eye"></i>
+
+                        </button>
+
+                        <button
+                                class="action-btn action-edit"
+                                title="Editar"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalExemplar">
+
+                            <i class="bi bi-pencil"></i>
+
+                        </button>
+
+                        <button
+                                class="action-btn action-delete"
+                                title="Excluir">
+
+                            <i class="bi bi-trash"></i>
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <!-- EMPTY STATE -->
+
+                <tr th:if="${#lists.isEmpty(exemplares)}">
+
+                    <td colspan="5">
+
+                        <div class="empty-state">
+
+                            <i class="bi bi-collection"></i>
+
+                            <h5 class="mt-3">
+                                Nenhum exemplar cadastrado
+                            </h5>
+
+                            <p>
+                                Cadastre o primeiro exemplar do acervo.
+                            </p>
+
+                            <button
+                                    class="btn btn-primary"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalExemplar">
+
+                                <i class="bi bi-plus-lg"></i>
+                                Cadastrar exemplar
+
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- PAGINATION -->
+
+        <nav>
+
+            <ul class="pagination justify-content-end">
+
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                        Anterior
+                    </a>
+                </li>
+
+                <li class="page-item active">
+                    <a class="page-link" href="#">
+                        1
+                    </a>
+                </li>
+
+                <li class="page-item">
+                    <a class="page-link" href="#">
+                        2
+                    </a>
+                </li>
+
+                <li class="page-item">
+                    <a class="page-link" href="#">
+                        Próxima
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </div>
+
+</div>
+
+
+<!-- MODAL NOVO EXEMPLAR -->
+
+<div
+        class="modal fade"
+        id="modalExemplar"
+        tabindex="-1"
+        aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    <i class="bi bi-collection me-2"></i>
+                    Novo exemplar
+                </h5>
+
+                <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+
+            <form action="/exemplares/salvar" method="post">
+
+                <div class="modal-body">
+
+                    <!-- CÓDIGO -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Código de patrimônio
+                        </label>
+
+                        <input
+                                type="text"
+                                name="codigoPatrimonio"
+                                class="form-control"
+                                maxlength="8"
+                                placeholder="Ex: EX000001"
+                                required>
+
+                        <small class="text-muted">
+                            Código único para identificar o exemplar.
+                        </small>
+
+                    </div>
+
+
+                    <!-- LIVRO -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Livro
+                        </label>
+
+                        <select
+                                name="livroId"
+                                class="form-select"
+                                required>
+
+                            <option value="">
+                                Selecione o livro
+                            </option>
+
+                            <option
+                                    th:each="livro : ${livros}"
+                                    th:value="${livro.id}"
+                                    th:text="${livro.titulo}">
+                                Dom Casmurro
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Status
+                        </label>
+
+                        <select
+                                name="status"
+                                class="form-select"
+                                required>
+
+                            <option value="DISPONIVEL">
+                                Disponível
+                            </option>
+
+                            <option value="EMPRESTADO">
+                                Emprestado
+                            </option>
+
+                            <option value="MANUTENCAO">
+                                Manutenção
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+
+                    <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+
+                        Cancelar
+
+                    </button>
+
+                    <button
+                            type="submit"
+                            class="btn btn-primary">
+
+                        <i class="bi bi-check-lg"></i>
+                        Salvar exemplar
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- BOOTSTRAP JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
 
 </body>
 </html>
