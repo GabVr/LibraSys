@@ -13,7 +13,7 @@ public class EditoraService {
     @Autowired
     EditoraRepository editoraRepository;
 
-    public Editora cadastrar(Editora editora){
+    public Editora cadastrarEditora(Editora editora){
         validarEditora(editora);
         return editoraRepository.save(editora);
     }
@@ -40,9 +40,9 @@ public class EditoraService {
         return  editoraRepository.save(editoraAtualizada);
     }
 
-    public void deletarEditoraPorId(Integer id) {
+    public Editora deletarEditoraPorId(int id) {
         buscarPorId(id);
-        editoraRepository.deleteById(id);
+        return editoraRepository.deleteById(id);
     }
 
     public void validarEditora(Editora editora) {}

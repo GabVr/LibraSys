@@ -6,7 +6,7 @@ import exceptions.AtributoException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+
 
 public class UsuarioService {
 
@@ -41,9 +41,9 @@ public class UsuarioService {
         return usuarioRepository.save(usuarioAtualizadoSalvo);
     }
 
-    public void deletarUsuarioPorId(Integer id){
+    public Usuario deletarUsuarioPorId(int id){
         buscarUsuarioPorId(id);
-        usuarioRepository.deleteById(id);
+        return usuarioRepository.deleteById(id);
     }
 
     public void validarUsuario(Usuario usuario) {}

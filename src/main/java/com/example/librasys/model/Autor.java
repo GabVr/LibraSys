@@ -1,22 +1,28 @@
 package com.example.librasys.model;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDate;
 
+@Entity
+@Table(name="autores")
 public class Autor {
 
-    @NotNull
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name="nome",nullable=false)
     @NotBlank (message = "Você deve informar o nome")
     private String nome;
 
+    @Column(name="nacionalidade", nullable=false)
     @NotBlank (message = "Você deve informar a nacionalidade")
     private String nacionalidade;
 
+    @Column(name="data_nascimento", nullable=false)
     @Positive
     @NotBlank (message = "Você deve informar a data de nascimento")
     private LocalDate dataNascimento;

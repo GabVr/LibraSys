@@ -1,35 +1,48 @@
 package com.example.librasys.model;
 
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Entity
+@Table(name="emprestimos")
 public class Emprestimo {
 
-    @NotNull
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
     @NotNull (message = "Você deve informar o usuário")
     private Usuario usuario;
 
+    @ManyToOne
+    @JoinColumn(name = "id_exemplar")
     @NotNull (message = "Você deve informar o livro exemplar")
     private Exemplar exemplar;
 
+    @Column(name="data_emprestimo", nullable=false)
     @Positive(message = "A data de emprestimo não pode ser 0 ou negativa")
     @NotNull
     private LocalDate dataEmprestimo;
 
+    @Column(name="data_devolucao", nullable=false)
     @Positive(message = "A data de devolução não pode ser 0 ou negativa")
     @NotNull
     private LocalDate dataDevolucao;
 
+    @Column(name="data_prevista_devolucao", nullable=false)
     @Positive(message = "A data prevista de devolução não pode ser 0 ou negativa")
-    @NotNull
+    @NotNull(message = "É necessário ter a data prevista para a devolução")
     private LocalTime dataPrevistaDevolucao;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_emprestimo")
     private Situacao status;
 
     public Integer getId() {

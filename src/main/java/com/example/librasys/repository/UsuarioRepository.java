@@ -17,7 +17,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Override
     List<Usuario> findAll();
 
-
-    @Override
-    void deleteById(Integer id);
+    Usuario deleteById(int id);
 }

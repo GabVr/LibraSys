@@ -13,6 +13,6 @@ public interface LivroRepository extends JpaRepository<Livro, Integer> {
     Optional<Livro> findById(Integer id);
     Optional<Livro>  findbyTitulo(String titulo);
 
-    @Override
-    void deleteById(Integer id);
+
+    Livro deleteById(int id);
 }

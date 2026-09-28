@@ -6,6 +6,8 @@ import com.example.librasys.repository.EmprestimoRepository;
 import exceptions.AtributoException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 public class EmprestimoService {
 
     @Autowired
@@ -14,6 +16,10 @@ public class EmprestimoService {
     public Emprestimo salvarEmprestimo(Emprestimo emprestimo){
         validarEmprestimo(emprestimo);
         return emprestimoRepository.save(emprestimo);
+    }
+
+    public List<Emprestimo> buscarTodosEmprestimos(){
+        return emprestimoRepository.findAll();
     }
 
     public Emprestimo buscarEmprestimoPorId(Integer idEmprestimo) {
@@ -35,14 +41,14 @@ public class EmprestimoService {
         return emprestimoRepository.save(EmprestimoAtualizado);
     }
 
-    public void deletarEmprestimoPorId(Integer idEmprestimo) {
+    public Emprestimo deletarEmprestimoPorId(int idEmprestimo) {
         buscarEmprestimoPorId(idEmprestimo);
-        emprestimoRepository.deleteById(idEmprestimo);
+        return emprestimoRepository.deleteById(idEmprestimo);
     }
 
-    public void deletarEmprestimoPorStatus(Situacao situacao) {
+    public Emprestimo deletarEmprestimoPorStatus(Situacao situacao) {
         buscarEmprestimoPorStatus(situacao);
-        emprestimoRepository.deleteBySituacao(situacao);
+        return emprestimoRepository.deleteBySituacao(situacao);
     }
 
     public void validarEmprestimo(Emprestimo emprestimo) {}
