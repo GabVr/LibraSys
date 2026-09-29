@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-run mvn clean package -DskipTests
+RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:21-jre AS runner
 WORKDIR /app
@@ -13,9 +13,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf 
 
 COPY --from=builder /app/target/*.jar app.jar
 
-expose 8080
+EXPOSE 8080
 
 HEALTHCHECK --interval=1m --retries=2 CMD curl  --fail  http://localhost:8080 || exit 1
 
-ENTRYPOINT["java","-jar","/app.jar"]
-
+ENTRYPOINT ["java", "-jar", "app.jar"]
