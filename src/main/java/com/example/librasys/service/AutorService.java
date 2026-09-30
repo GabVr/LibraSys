@@ -5,10 +5,12 @@ import com.example.librasys.repository.AutorRepository;
 import exceptions.AtributoException;
 import exceptions.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Service
 public class AutorService {
 
     @Autowired

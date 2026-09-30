@@ -5,10 +5,12 @@ import com.example.librasys.model.Emprestimo;
 
 import com.example.librasys.model.Situacao;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface EmprestimoRepository extends JpaRepository<Emprestimo, Integer> {
 
 

@@ -43,7 +43,7 @@ public class Emprestimo {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_emprestimo")
-    private Situacao status;
+    private Situacao situacao;
 
     public Integer getId() {
         return id;
@@ -91,10 +91,10 @@ public class Emprestimo {
     }
 
     public Situacao getStatus() {
-            return  status;
+            return  situacao;
     }
 
-    public void setStatus(Situacao status) {
-        this.status = status;
+    public void setStatus(Situacao situacao) {
+        this.situacao = situacao;
     }
 }

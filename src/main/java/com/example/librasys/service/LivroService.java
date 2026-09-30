@@ -4,9 +4,12 @@ import com.example.librasys.model.Livro;
 import com.example.librasys.repository.LivroRepository;
 import exceptions.AtributoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+@Service
 public class LivroService {
 
     @Autowired
@@ -31,7 +34,7 @@ public class LivroService {
     }
 
     public Livro buscarLivroPorTitulo(String titulo){
-        return livroRepository.findbyTitulo(titulo).orElseThrow(() -> new AtributoException("Não foi possível encontrar o seu livro por titulo"));
+        return livroRepository.findByTituloContainingIgnoreCase(titulo).orElseThrow(() -> new AtributoException("Não foi possível encontrar o seu livro por titulo"));
     }
 
     public Livro atualizarLivroPorId(Integer id,  Livro livroDadosAtualizados) {

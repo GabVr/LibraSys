@@ -4,10 +4,12 @@ import com.example.librasys.model.Editora;
 import com.example.librasys.repository.EditoraRepository;
 import exceptions.AtributoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
+@Service
 public class EditoraService {
 
     @Autowired

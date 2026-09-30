@@ -2,10 +2,12 @@ package com.example.librasys.repository;
 
 import com.example.librasys.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     boolean existsById(Integer id);
@@ -16,6 +18,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     @Override
     List<Usuario> findAll();
-    Optional<Usuario>findAtivos(boolean ativos);
+    Optional<Usuario>findByAtivo(boolean ativo);
     Usuario deleteById(int id);
 }

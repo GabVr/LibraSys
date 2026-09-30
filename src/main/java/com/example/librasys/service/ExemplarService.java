@@ -7,17 +7,17 @@ import com.example.librasys.repository.ExemplarRepository;
 import exceptions.AtributoException;
 import exceptions.EnumException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+
+@Service
 public class ExemplarService {
 
     @Autowired
     ExemplarRepository exemplarRepository;
-
-    @Autowired
-    Exemplar  exemplar;
 
     public Exemplar salvarExemplar(Exemplar exemplar){
         validarExemplar(exemplar);
@@ -34,7 +34,7 @@ public class ExemplarService {
 
     public Optional<Exemplar> buscarExemplaresDisponiveis(){
         if(exemplarRepository.findByStatus(Status.DISPONIVEL).isPresent()){
-            return exemplarRepository.findByDisponivel(Status.DISPONIVEL);
+            return exemplarRepository.findByStatus(Status.DISPONIVEL);
         }
         else{
             throw new EnumException("Não foi possível encontrar o exemplar disponivel");

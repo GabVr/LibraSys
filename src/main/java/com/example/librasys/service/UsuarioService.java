@@ -3,21 +3,21 @@ package com.example.librasys.service;
 import com.example.librasys.model.Usuario;
 import com.example.librasys.repository.UsuarioRepository;
 import exceptions.AtributoException;
+import exceptions.EnumException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
+@Service
 public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-
-    @Autowired
-    private Usuario usuario;
-
+    
     public Usuario salvarUsuario(Usuario usuario){
         validarUsuario(usuario);
 
@@ -29,14 +29,8 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public Optional<Usuario> listarAtivos(){
-
-        if(usuario.isAtivo()){
-            return usuarioRepository.findAtivos(usuario.isAtivo());
-        }
-        else{
-            throw new NoSuchElementException("Não foi possível encontrar o usuário");
-        }
+    public Usuario listarAtivos(){
+        return usuarioRepository.findByAtivo(true).orElseThrow(() -> new AtributoException("Não foi possível encontrar o usuário ativo"));
     }
 
     public Usuario buscarUsuarioPorId(Integer id){
