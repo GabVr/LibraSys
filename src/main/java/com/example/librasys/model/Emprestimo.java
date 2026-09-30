@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Entity
 @Table(name="emprestimos")
@@ -39,7 +38,7 @@ public class Emprestimo {
     @Column(name="data_prevista_devolucao", nullable=false)
     @Positive(message = "A data prevista de devolução não pode ser 0 ou negativa")
     @NotNull(message = "É necessário ter a data prevista para a devolução")
-    private LocalTime dataPrevistaDevolucao;
+    private LocalDate dataPrevistaDevolucao;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_emprestimo")
@@ -86,8 +85,12 @@ public class Emprestimo {
         this.dataDevolucao = dataDevolucao;
     }
 
-    public LocalTime getDataPrevistaDevolucao() {
+    public LocalDate getDataPrevistaDevolucao() {
         return dataPrevistaDevolucao;
+    }
+
+    public void setDataPrevistaDevolucao(LocalDate dataPrevistaDevolucao) {
+        this.dataPrevistaDevolucao = dataPrevistaDevolucao;
     }
 
     public Situacao getStatus() {

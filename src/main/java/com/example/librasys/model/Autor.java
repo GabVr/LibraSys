@@ -2,6 +2,7 @@ package com.example.librasys.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDate;
@@ -23,8 +24,7 @@ public class Autor {
     private String nacionalidade;
 
     @Column(name="data_nascimento", nullable=false)
-    @Positive
-    @NotBlank (message = "Você deve informar a data de nascimento")
+    @NotNull(message = "Você deve informar a data de nascimento")
     private LocalDate dataNascimento;
 
 

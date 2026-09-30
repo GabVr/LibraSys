@@ -38,6 +38,10 @@ public class Usuario {
     @Column(name="ativo")
     private boolean ativo = true;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TipoUsuario tipo;
+
     public Integer getId() {
         return id;
     }
@@ -93,5 +97,13 @@ public class Usuario {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public TipoUsuario getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoUsuario tipo) {
+        this.tipo = tipo;
     }
 }
