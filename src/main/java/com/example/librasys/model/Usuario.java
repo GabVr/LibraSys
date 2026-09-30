@@ -36,7 +36,7 @@ public class Usuario {
     private String telefone;
 
     @Column(name="ativo")
-    private boolean ativo;
+    private boolean ativo = true;
 
     public Integer getId() {
         return id;

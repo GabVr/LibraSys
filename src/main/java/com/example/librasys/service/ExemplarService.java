@@ -9,11 +9,15 @@ import exceptions.EnumException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ExemplarService {
 
     @Autowired
     ExemplarRepository exemplarRepository;
+
+    @Autowired
+    Exemplar  exemplar;
 
     public Exemplar salvarExemplar(Exemplar exemplar){
         validarExemplar(exemplar);
@@ -26,6 +30,31 @@ public class ExemplarService {
 
     public Exemplar buscarExemplarPorStatus(Status status){
         return exemplarRepository.findByStatus(status).orElseThrow(() -> new EnumException("Não foi possível encontrar o exemplar pelo status"));
+    }
+
+    public Optional<Exemplar> buscarExemplaresDisponiveis(){
+        if(exemplarRepository.findByStatus(Status.DISPONIVEL).isPresent()){
+            return exemplarRepository.findByDisponivel(Status.DISPONIVEL);
+        }
+        else{
+            throw new EnumException("Não foi possível encontrar o exemplar disponivel");
+        }
+    }
+
+    public long contarExemplares() {
+        return exemplarRepository.count();
+    }
+
+    public long contarDisponiveis() {
+        return exemplarRepository.countByStatus(Status.DISPONIVEL);
+    }
+
+    public long contarEmprestados() {
+        return exemplarRepository.countByStatus(Status.EMPRESTADO);
+    }
+
+    public long contarEmManutencao() {
+        return exemplarRepository.countByStatus(Status.MANUTENCAO);
     }
 
     public List<Exemplar> buscarTodosExemplares(){

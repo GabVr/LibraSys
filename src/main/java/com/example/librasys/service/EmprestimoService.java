@@ -41,6 +41,23 @@ public class EmprestimoService {
         return emprestimoRepository.save(EmprestimoAtualizado);
     }
 
+
+    public EmprestimoService(EmprestimoRepository emprestimoRepository) {
+        this.emprestimoRepository = emprestimoRepository;
+    }
+
+    public long contarAtivos() {
+        return emprestimoRepository.countBySituacao(Situacao.ATIVO);
+    }
+
+    public long contarAtrasados() {
+        return emprestimoRepository.countBySituacao(Situacao.ATRASADO);
+    }
+
+    public List<Emprestimo> listarRecentes() {
+        return emprestimoRepository.findTop5ByOrderByDataEmprestimoDesc();
+    }
+
     public Emprestimo deletarEmprestimoPorId(int idEmprestimo) {
         buscarEmprestimoPorId(idEmprestimo);
         return emprestimoRepository.deleteById(idEmprestimo);

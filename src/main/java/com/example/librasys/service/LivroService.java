@@ -22,6 +22,10 @@ public class LivroService {
         return livroRepository.findAll();
     }
 
+    public long contarLivros() {
+        return livroRepository.count();
+    }
+
     public Livro buscarLivroPorId(Integer id){
         return livroRepository.findById(id).orElseThrow(() -> new AtributoException("Não foi possível encontrar o seu livro por id"));
     }

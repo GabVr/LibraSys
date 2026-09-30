@@ -16,6 +16,7 @@ public interface ExemplarRepository extends JpaRepository<Exemplar, Integer> {
     Optional<Exemplar> findByStatus(Status status);
 
     Exemplar deleteByStatus(Status status);
-
+    Optional <Exemplar> findByDisponivel(Status disponivel);
     Exemplar deleteById(int id);
+    long countByStatus(Status status);
 }

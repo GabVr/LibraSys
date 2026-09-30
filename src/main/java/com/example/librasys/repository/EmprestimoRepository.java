@@ -21,4 +21,6 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Integer>
     Optional<Emprestimo> findBySituacao(Situacao situacao);
 
     Emprestimo deleteBySituacao(Situacao situacao);
+    long countBySituacao(Situacao situacao);
+    List<Emprestimo> findTop5ByOrderByDataEmprestimoDesc();
 }

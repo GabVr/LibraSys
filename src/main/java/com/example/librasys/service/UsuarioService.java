@@ -6,12 +6,17 @@ import exceptions.AtributoException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 
 public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private Usuario usuario;
 
     public Usuario salvarUsuario(Usuario usuario){
         validarUsuario(usuario);
@@ -22,6 +27,16 @@ public class UsuarioService {
     public List<Usuario> listarUsuario(){
 
         return usuarioRepository.findAll();
+    }
+
+    public Optional<Usuario> listarAtivos(){
+
+        if(usuario.isAtivo()){
+            return usuarioRepository.findAtivos(usuario.isAtivo());
+        }
+        else{
+            throw new NoSuchElementException("Não foi possível encontrar o usuário");
+        }
     }
 
     public Usuario buscarUsuarioPorId(Integer id){

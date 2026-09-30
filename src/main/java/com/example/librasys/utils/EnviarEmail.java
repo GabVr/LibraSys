@@ -9,7 +9,22 @@ import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import org.springframework.beans.factory.annotation.Value;
+
 public class EnviarEmail {
+
+
+    @Value("${mail.smtp.host}")
+    private String host;
+
+    @Value("${mail.smtp.port}")
+    private String port;
+
+    @Value("${mail.smtp.username}")
+    private static String remetente;
+
+    @Value("${mail.smtp.password}")
+    private static String senha;
 
         public static void main(String[] args) {
             Properties props = new Properties();
@@ -26,7 +41,7 @@ public class EnviarEmail {
                     new jakarta.mail.Authenticator() {
                         protected PasswordAuthentication getPasswordAuthentication()
                         {
-                            return new PasswordAuthentication("seuemail@hotmail.com", "suasenha123");
+                            return new PasswordAuthentication(remetente, senha);
                         }
                     });
             session.setDebug(true);
@@ -36,12 +51,12 @@ public class EnviarEmail {
 
             try {
                 Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress("seuemail@hotmail.com")); //Remetente
+                message.setFrom(new InternetAddress(remetente)); //Remetente
 
                 message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse("seuamigo@hotmail.com")); //Destinatário(s)
+                        InternetAddress.parse(remetente)); //Destinatário(s)
                 message.setSubject("Enviando email com JavaMail");//Assunto
-                message.setText("Enviei este email utilizando JavaMail com minha conta Hotmail!");
+                message.setText("Enviei este email utilizando JavaMail!");
                 /**Método para enviar a mensagem criada*/
                 Transport.send(message);
 
