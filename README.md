@@ -91,18 +91,7 @@ Não é necessário instalar Java, Maven ou MySQL separadamente.
 git clone <url-do-repositorio>
 cd LibraSys
 ```
-
-### 2. Configurar o .env (faça isso no .env.properties para o application.properties poder reconhecer)
-
-Configure as informações do banco de dados:
-```
-MYSQL_DATABASE=librasys
-MYSQL_ROOT_PASSWORD=sua_senha
-MYSQL_USER=seu_usuario
-MYSQL_PASSWORD=sua_senha
-MYSQL_HOST=db
-```
-### 3. Executar
+### 2. Executar
 
 ```bash
 docker compose up --build
@@ -119,7 +108,7 @@ docker compose up --build -d
 http://localhost:8080
 
 ---
-### 4. Encerrar
+### 3. Encerrar
 ```bash
 docker compose down
 ```
