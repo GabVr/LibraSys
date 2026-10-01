@@ -101,7 +101,7 @@ public class FluxoTelasController {
     @GetMapping("/editoras")
     public String editoras(Model model){
 
-        model.addAttribute("autores", autorService.buscarTodosAutores());
+        model.addAttribute("editoras", editoraService.BuscarTodasEditoras());
 
         return "editoras";
     }

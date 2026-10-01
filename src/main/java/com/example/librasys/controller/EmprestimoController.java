@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("/api/emprestimos")
 public class EmprestimoController {
@@ -15,10 +17,20 @@ public class EmprestimoController {
     @Autowired
     EmprestimoService emprestimoService;
 
-    @PutMapping
+    @PostMapping
     public ResponseEntity<?> inserirEmprestimo(@Valid @RequestBody Emprestimo emprestimo){
         Emprestimo novoEmprestimo = emprestimoService.salvarEmprestimo(emprestimo);
         return ResponseEntity.ok(emprestimoService.salvarEmprestimo(novoEmprestimo));
+    }
+
+    @PostMapping("/devolver")
+    public ResponseEntity<?> devolverEmprestimo(
+            @RequestParam Integer id,
+            @RequestParam LocalDate dataDevolucao) {
+
+        return ResponseEntity.ok(
+                emprestimoService.devolverEmprestimo(id, dataDevolucao)
+        );
     }
 
     @GetMapping

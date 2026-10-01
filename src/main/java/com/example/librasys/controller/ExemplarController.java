@@ -1,8 +1,10 @@
 package com.example.librasys.controller;
 
 import com.example.librasys.model.Exemplar;
+import com.example.librasys.model.Livro;
 import com.example.librasys.model.Status;
 import com.example.librasys.service.ExemplarService;
+import com.example.librasys.service.LivroService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,29 @@ public class ExemplarController {
 
     @Autowired
     ExemplarService exemplarService;
+
+    @Autowired
+    LivroService livroService;
+
+    @PostMapping("/salvar")
+    public ResponseEntity<Void> salvarExemplar(
+            @RequestParam String codigoPatrimonio,
+            @RequestParam Integer livroId,
+            @RequestParam Status status) {
+
+        Livro livro = livroService.buscarLivroPorId(livroId);
+
+        Exemplar exemplar = new Exemplar();
+        exemplar.setCodigoPatrimonio(codigoPatrimonio);
+        exemplar.setLivro(livro);
+        exemplar.setStatus(status);
+
+        exemplarService.salvarExemplar(exemplar);
+
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .header("Location", "/exemplares")
+                .build();
+    }
 
     @PostMapping
     public ResponseEntity<?> inserirExemplar(@RequestBody Exemplar exemplar) {

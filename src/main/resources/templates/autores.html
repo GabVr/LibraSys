@@ -14,8 +14,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
           rel="stylesheet">
 
-    <link th:href="@{/css/autores.css}" href="/css/autores.css" rel="stylesheet" type="text/css">
-
+    <link th:href="@{/css/autores.css}"
+          href="/css/autores.css"
+          rel="stylesheet"
+          type="text/css">
 
 </head>
 
@@ -67,10 +69,16 @@
 
     <div class="logout">
 
-        <a href="/logout">
-            <i class="bi bi-box-arrow-left"></i>
-            Sair
-        </a>
+        <form th:action="@{/logout}" method="post">
+
+            <button type="submit" class="sidebar-link">
+
+                <i class="bi bi-box-arrow-right"></i>
+                Sair
+
+            </button>
+
+        </form>
 
     </div>
 
@@ -98,17 +106,6 @@
 
         <div class="filters">
 
-            <div class="search-box">
-
-                <i class="bi bi-search"></i>
-
-                <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Buscar autor...">
-
-            </div>
-
             <button
                     class="btn btn-primary px-4"
                     data-bs-toggle="modal"
@@ -133,7 +130,6 @@
                     <th>Nome</th>
                     <th>Nacionalidade</th>
                     <th>Data de nascimento</th>
-                    <th>Livros</th>
                     <th class="text-end">Ações</th>
 
                 </tr>
@@ -144,45 +140,37 @@
 
                 <tr th:each="autor : ${autores}">
 
-                    <td>
-
-                        <span class="author-name"
-                              th:text="${autor.nome}">
-                            Machado de Assis
-                        </span>
-
+                    <td th:text="${autor.nome}">
+                        Nome
                     </td>
 
                     <td th:text="${autor.nacionalidade}">
-                        Brasileira
+                        Nacionalidade
                     </td>
 
                     <td th:text="${autor.dataNascimento}">
-                        1839-06-21
-                    </td>
-
-                    <td>
-
-                        <span
-                                class="badge bg-primary"
-                                th:text="${#lists.size(autor.livros)}">
-                            1
-                        </span>
-
+                        Data
                     </td>
 
                     <td class="text-end">
 
+                        <!-- EDITAR -->
+
                         <button
+                                type="button"
                                 class="action-btn action-edit"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalAutor">
+                                th:onclick="|editarAutor(${autor.id})|">
 
                             <i class="bi bi-pencil"></i>
 
                         </button>
 
-                        <button class="action-btn action-delete">
+                        <!-- EXCLUIR -->
+
+                        <button
+                                type="button"
+                                class="action-btn action-delete"
+                                th:onclick="|excluirAutor(${autor.id})|">
 
                             <i class="bi bi-trash"></i>
 
@@ -214,8 +202,10 @@
             <div class="modal-header">
 
                 <h5 class="modal-title">
+
                     <i class="bi bi-person-vcard me-2"></i>
                     Novo autor
+
                 </h5>
 
                 <button
@@ -226,7 +216,10 @@
 
             </div>
 
-            <form action="/autores/salvar" method="post">
+
+            <form id="formAutor">
+
+                <input type="hidden" id="autorId">
 
                 <div class="modal-body">
 
@@ -238,10 +231,14 @@
 
                         <input
                                 type="text"
+                                id="nome"
                                 name="nome"
                                 class="form-control"
                                 required>
+
                     </div>
+
+
                     <div class="mb-3">
 
                         <label class="form-label">
@@ -250,9 +247,13 @@
 
                         <input
                                 type="text"
+                                id="nacionalidade"
                                 name="nacionalidade"
                                 class="form-control">
+
                     </div>
+
+
                     <div class="mb-3">
 
                         <label class="form-label">
@@ -261,11 +262,14 @@
 
                         <input
                                 type="date"
+                                id="dataNascimento"
                                 name="dataNascimento"
                                 class="form-control">
+
                     </div>
 
                 </div>
+
 
                 <div class="modal-footer">
 
@@ -299,5 +303,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
 </script>
+
+<script th:src="@{/js/autores.js}"></script>
+
 </body>
+
 </html>

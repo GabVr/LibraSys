@@ -7,6 +7,7 @@ import exceptions.AtributoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -18,6 +19,16 @@ public class EmprestimoService {
 
     public Emprestimo salvarEmprestimo(Emprestimo emprestimo){
         validarEmprestimo(emprestimo);
+        return emprestimoRepository.save(emprestimo);
+    }
+
+    public Emprestimo devolverEmprestimo(Integer id, LocalDate dataDevolucao) {
+
+        Emprestimo emprestimo = buscarEmprestimoPorId(id);
+
+        emprestimo.setDataDevolucao(dataDevolucao);
+        emprestimo.setStatus(Situacao.DEVOLVIDO);
+
         return emprestimoRepository.save(emprestimo);
     }
 

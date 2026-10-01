@@ -14,7 +14,7 @@ public interface ExemplarRepository extends JpaRepository<Exemplar, Integer> {
     Optional<Exemplar> findById(Integer id);
     boolean existsById(Integer id);
     List<Exemplar> findAll();
-    Optional<Exemplar> findByStatus(Status status);
+    List<Exemplar> findByStatus(Status status);
 
     Exemplar deleteByStatus(Status status);
     Exemplar deleteById(int id);

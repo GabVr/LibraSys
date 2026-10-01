@@ -1,19 +1,52 @@
 package com.example.librasys.controller;
 
+import com.example.librasys.model.TipoUsuario;
 import com.example.librasys.model.Usuario;
+import com.example.librasys.repository.UsuarioRepository;
 import com.example.librasys.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/suarios")
+@RequestMapping("/api/usuarios")
 public class UsuarioController {
 
     @Autowired
     UsuarioService usuarioService;
+
+    @Autowired
+    UsuarioRepository usuarioRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @PostMapping("/usuarios/salvar")
+    public String salvar(
+            @RequestParam String nome,
+            @RequestParam String cpf,
+            @RequestParam String telefone,
+            @RequestParam String email,
+            @RequestParam String senha,
+            @RequestParam TipoUsuario tipo) {
+
+        Usuario usuario = new Usuario();
+
+        usuario.setNome(nome);
+        usuario.setCpf(cpf);
+        usuario.setTelefone(telefone);
+        usuario.setEmail(email);
+        usuario.setSenha(senha);
+        usuario.setTipo(tipo);
+        usuario.setAtivo(true);
+
+        usuarioRepository.save(usuario);
+
+        return "redirect:/usuarios";
+    }
 
     @PostMapping
     public ResponseEntity<?> cadastrarUsuario(@Valid @RequestBody Usuario usuario) {
@@ -27,7 +60,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/id")
-    public ResponseEntity<?> buscarUsuarioPorId(@Valid @RequestParam Integer id,@Valid @RequestBody Usuario usuario) {
+    public ResponseEntity<?> buscarUsuarioPorId(@Valid @RequestParam Integer id) {
         return ResponseEntity.ok(usuarioService.buscarUsuarioPorId(id));
     }
 

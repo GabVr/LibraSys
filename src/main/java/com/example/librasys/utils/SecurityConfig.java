@@ -45,12 +45,7 @@ public class SecurityConfig {
                                 "/autores/**",
                                 "/exemplares/**"
                         ).hasRole("ADMIN")
-
-
-                        .requestMatchers("/emprestimos/meus")
-                        .hasRole("USUARIO")
-
-
+                        
                         .requestMatchers("/emprestimos/**")
                         .hasRole("ADMIN")
 

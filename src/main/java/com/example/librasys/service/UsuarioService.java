@@ -5,6 +5,7 @@ import com.example.librasys.repository.UsuarioRepository;
 import exceptions.AtributoException;
 import exceptions.EnumException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +18,16 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-    
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
     public Usuario salvarUsuario(Usuario usuario){
         validarUsuario(usuario);
+
+
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 
         return usuarioRepository.save(usuario);
     }
@@ -29,8 +37,8 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public Usuario listarAtivos(){
-        return usuarioRepository.findByAtivo(true).orElseThrow(() -> new AtributoException("Não foi possível encontrar o usuário ativo"));
+    public  List<Usuario> listarAtivos(){
+        return usuarioRepository.findByAtivo(true);
     }
 
     public Usuario buscarUsuarioPorId(Integer id){

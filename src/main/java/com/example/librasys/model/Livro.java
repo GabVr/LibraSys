@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name="livros")
 public class Livro {
@@ -34,6 +37,14 @@ public class Livro {
     @JoinColumn(name = "id_editora")
     @NotNull (message = "O campo de editor não pode ficar vazio")
     private Editora editora;
+
+    @ManyToMany
+    @JoinTable(
+            name = "livro_autor",
+            joinColumns = @JoinColumn(name = "livro_id"),
+            inverseJoinColumns = @JoinColumn(name = "autor_id")
+    )
+    private Set<Autor> autores = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -81,5 +92,13 @@ public class Livro {
 
     public void setEditora(Editora editora) {
         this.editora = editora;
+    }
+
+    public Set<Autor> getAutores() {
+        return autores;
+    }
+
+    public void setAutores(Set<Autor> autores) {
+        this.autores = autores;
     }
 }

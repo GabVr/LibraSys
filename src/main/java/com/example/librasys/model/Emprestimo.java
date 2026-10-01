@@ -25,18 +25,14 @@ public class Emprestimo {
     @NotNull (message = "Você deve informar o livro exemplar")
     private Exemplar exemplar;
 
-    @Column(name="data_emprestimo", nullable=false)
-    @Positive(message = "A data de emprestimo não pode ser 0 ou negativa")
-    @NotNull
+    @Column(name="data_emprestimo", nullable=true)
     private LocalDate dataEmprestimo;
 
-    @Column(name="data_devolucao", nullable=false)
-    @Positive(message = "A data de devolução não pode ser 0 ou negativa")
-    @NotNull
+
+    @Column(name="data_devolucao", nullable = true)
     private LocalDate dataDevolucao;
 
     @Column(name="data_prevista_devolucao", nullable=false)
-    @Positive(message = "A data prevista de devolução não pode ser 0 ou negativa")
     @NotNull(message = "É necessário ter a data prevista para a devolução")
     private LocalDate dataPrevistaDevolucao;
 

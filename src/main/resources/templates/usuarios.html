@@ -62,10 +62,12 @@
     </a>
 
     <div class="logout">
-        <a href="/logout">
-            <i class="bi bi-box-arrow-left"></i>
-            Sair
-        </a>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="sidebar-link">
+                <i class="bi bi-box-arrow-right"></i>
+                Sair
+            </button>
+        </form>
     </div>
 
 </div>
@@ -95,25 +97,10 @@
     </div>
 
     <div class="content-card">
-
-        <div class="filters">
-
-            <div class="search-box">
-                <i class="bi bi-search"></i>
-
-                <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Buscar por nome, CPF ou e-mail...">
-            </div>
-
-            <select class="form-select" style="max-width: 180px;">
-                <option value="">Todos</option>
-                <option value="true">Ativos</option>
-                <option value="false">Inativos</option>
-            </select>
-
+        <div  class="filters">
             <button
+                    type="button"
+                    id="btnNovoUsuario"
                     class="btn btn-primary px-4"
                     data-bs-toggle="modal"
                     data-bs-target="#modalUsuario">
@@ -168,36 +155,45 @@
                         <span
                                 th:if="${usuario.ativo}"
                                 class="status status-active">
+
                             <i class="bi bi-check-circle"></i>
                             Ativo
+
                         </span>
 
                         <span
                                 th:unless="${usuario.ativo}"
                                 class="status status-inactive">
+
                             <i class="bi bi-x-circle"></i>
                             Inativo
+
                         </span>
 
                     </td>
 
                     <td class="text-end">
 
-                        <button class="action-btn action-view">
-                            <i class="bi bi-eye"></i>
-                        </button>
+                        <!-- EDITAR -->
 
                         <button
+                                type="button"
                                 class="action-btn action-edit"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalUsuario">
+                                th:onclick="|editarUsuario(${usuario.id})|">
 
                             <i class="bi bi-pencil"></i>
 
                         </button>
 
-                        <button class="action-btn action-delete">
+                        <!-- EXCLUIR -->
+
+                        <button
+                                type="button"
+                                class="action-btn action-delete"
+                                th:onclick="|excluirUsuario(${usuario.id})|">
+
                             <i class="bi bi-trash"></i>
+
                         </button>
 
                     </td>
@@ -226,8 +222,10 @@
             <div class="modal-header">
 
                 <h5 class="modal-title">
+
                     <i class="bi bi-person-plus me-2"></i>
                     Novo usuário
+
                 </h5>
 
                 <button
@@ -238,29 +236,42 @@
 
             </div>
 
-            <form action="/usuarios/salvar" method="post">
+            <!-- FORMULÁRIO -->
+
+            <form id="formUsuario">
+
+                <!-- ID DO USUÁRIO -->
+                <input type="hidden" id="usuarioId">
 
                 <div class="modal-body">
 
                     <div class="mb-3">
-                        <label class="form-label">Nome</label>
+
+                        <label class="form-label">
+                            Nome
+                        </label>
 
                         <input
                                 type="text"
                                 name="nome"
+                                id="nome"
                                 class="form-control"
                                 required>
+
                     </div>
 
                     <div class="row">
 
                         <div class="col-md-6 mb-3">
 
-                            <label class="form-label">CPF</label>
+                            <label class="form-label">
+                                CPF
+                            </label>
 
                             <input
                                     type="text"
                                     name="cpf"
+                                    id="cpf"
                                     class="form-control"
                                     maxlength="11"
                                     required>
@@ -269,11 +280,14 @@
 
                         <div class="col-md-6 mb-3">
 
-                            <label class="form-label">Telefone</label>
+                            <label class="form-label">
+                                Telefone
+                            </label>
 
                             <input
                                     type="text"
                                     name="telefone"
+                                    id="telefone"
                                     class="form-control"
                                     maxlength="11"
                                     required>
@@ -284,11 +298,14 @@
 
                     <div class="mb-3">
 
-                        <label class="form-label">E-mail</label>
+                        <label class="form-label">
+                            E-mail
+                        </label>
 
                         <input
                                 type="email"
                                 name="email"
+                                id="email"
                                 class="form-control"
                                 required>
 
@@ -296,13 +313,44 @@
 
                     <div class="mb-3">
 
-                        <label class="form-label">Senha</label>
+                        <label class="form-label">
+                            Senha
+                        </label>
 
                         <input
                                 type="password"
                                 name="senha"
+                                id="senha"
                                 class="form-control"
                                 required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Tipo de usuário
+                        </label>
+
+                        <select
+                                name="tipo"
+                                id="tipo"
+                                class="form-select"
+                                required>
+
+                            <option value="">
+                                Selecione o tipo
+                            </option>
+
+                            <option value="USUARIO">
+                                Usuário
+                            </option>
+
+                            <option value="ADMIN">
+                                Administrador
+                            </option>
+
+                        </select>
 
                     </div>
 
@@ -314,14 +362,18 @@
                             type="button"
                             class="btn btn-secondary"
                             data-bs-dismiss="modal">
+
                         Cancelar
+
                     </button>
 
                     <button
                             type="submit"
                             class="btn btn-primary">
+
                         <i class="bi bi-check-lg"></i>
                         Salvar usuário
+
                     </button>
 
                 </div>
@@ -334,9 +386,10 @@
 
 </div>
 
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
 </script>
+
+<script th:src="@{/js/usuarios.js}"></script>
 
 </body>
 </html>

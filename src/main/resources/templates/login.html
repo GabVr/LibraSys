@@ -122,7 +122,6 @@
 
         </p>
 
-
         <!-- MENSAGEM DE ERRO -->
 
         <div
@@ -147,7 +146,6 @@
             Você saiu da sua conta.
 
         </div>
-
 
         <!-- FORM -->
 
@@ -181,7 +179,7 @@
                     <input
                             type="email"
                             id="email"
-                            name="email"
+                            name="username"
                             class="form-control"
                             placeholder="Digite seu e-mail"
                             autocomplete="email"
@@ -190,7 +188,6 @@
                 </div>
 
             </div>
-
 
             <!-- SENHA -->
 
@@ -210,7 +207,7 @@
                     <input
                             type="password"
                             id="senha"
-                            name="senha"
+                            name="password"
                             class="form-control"
                             placeholder="Digite sua senha"
                             autocomplete="current-password"
@@ -230,39 +227,6 @@
                 </div>
 
             </div>
-
-
-            <!-- OPÇÕES -->
-
-            <div class="login-options">
-
-                <div class="form-check">
-
-                    <input
-                            class="form-check-input"
-                            type="checkbox"
-                            id="lembrar">
-
-                    <label
-                            class="form-check-label"
-                            for="lembrar">
-
-                        Lembrar de mim
-
-                    </label>
-
-                </div>
-
-
-                <a href="/recuperar-senha">
-
-                    Esqueci minha senha
-
-                </a>
-
-            </div>
-
-
             <!-- BOTÃO -->
 
             <button
@@ -283,40 +247,7 @@
 
 </div>
 
-
-<script>
-
-    const toggleSenha = document.getElementById("toggleSenha");
-    const senha = document.getElementById("senha");
-
-    toggleSenha.addEventListener("click", function () {
-
-        const tipo =
-            senha.getAttribute("type") === "password"
-                ? "text"
-                : "password";
-
-        senha.setAttribute("type", tipo);
-
-        const icon = toggleSenha.querySelector("i");
-
-        if (tipo === "text") {
-
-            icon.classList.remove("bi-eye");
-            icon.classList.add("bi-eye-slash");
-
-        } else {
-
-            icon.classList.remove("bi-eye-slash");
-            icon.classList.add("bi-eye");
-
-        }
-
-    });
-
-</script>
-
-
+<script th:src="@{/js/login.js}"></script>
 </body>
 
 </html>

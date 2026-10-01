@@ -28,17 +28,12 @@ public class ExemplarService {
         return exemplarRepository.findById(idExemplar).orElseThrow(() -> new AtributoException("Não foi possível encontrar o exemplar por ID"));
     }
 
-    public Exemplar buscarExemplarPorStatus(Status status){
-        return exemplarRepository.findByStatus(status).orElseThrow(() -> new EnumException("Não foi possível encontrar o exemplar pelo status"));
+    public List<Exemplar> buscarExemplarPorStatus(Status status){
+        return exemplarRepository.findByStatus(status);
     }
 
-    public Optional<Exemplar> buscarExemplaresDisponiveis(){
-        if(exemplarRepository.findByStatus(Status.DISPONIVEL).isPresent()){
-            return exemplarRepository.findByStatus(Status.DISPONIVEL);
-        }
-        else{
-            throw new EnumException("Não foi possível encontrar o exemplar disponivel");
-        }
+    public List<Exemplar> buscarExemplaresDisponiveis(){
+        return exemplarRepository.findByStatus(Status.DISPONIVEL);
     }
 
     public long contarExemplares() {

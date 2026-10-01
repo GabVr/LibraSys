@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html lang="pt-BR"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -70,68 +70,59 @@
 
     <nav class="nav flex-column">
 
+        <!-- Visível para ADMIN -->
         <a href="/livros"
-           class="nav-link">
+           class="nav-link"
+           sec:authorize="hasRole('ADMIN')">
 
             <i class="bi bi-book"></i>
-
             Livros
 
         </a>
 
 
         <a href="/exemplares"
-           class="nav-link">
+           class="nav-link"
+           sec:authorize="hasRole('ADMIN')">
 
             <i class="bi bi-box-seam"></i>
-
             Exemplares
 
         </a>
 
 
         <a href="/usuarios"
-           class="nav-link">
+           class="nav-link"
+           sec:authorize="hasRole('ADMIN')">
 
             <i class="bi bi-people"></i>
-
             Usuários
 
         </a>
 
 
         <a href="/autores"
-           class="nav-link">
+           class="nav-link"
+           sec:authorize="hasRole('ADMIN')">
 
             <i class="bi bi-person-lines-fill"></i>
-
             Autores
 
         </a>
 
 
         <a href="/editoras"
-           class="nav-link">
+           class="nav-link"
+           sec:authorize="hasRole('ADMIN')">
 
             <i class="bi bi-building"></i>
-
             Editoras
 
         </a>
 
-    </nav>
-
-
-    <!-- CIRCULAÇÃO -->
-
-    <div class="menu-title">
-        Circulação
-    </div>
-
-    <nav class="nav flex-column">
-
         <a href="/emprestimos"
-           class="nav-link">
+           class="nav-link"
+           sec:authorize="hasRole('ADMIN')">
 
             <i class="bi bi-arrow-left-right"></i>
 
@@ -139,34 +130,29 @@
 
         </a>
 
-    </nav>
 
+    </nav>
 
     <!-- SAIR -->
 
     <div class="position-absolute bottom-0 start-0 w-100 p-3">
 
-        <a href="/logout"
-           class="nav-link">
-
-            <i class="bi bi-box-arrow-right"></i>
-
-            Sair
-
-        </a>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="sidebar-link">
+                <i class="bi bi-box-arrow-right"></i>
+                Sair
+            </button>
+        </form>
 
     </div>
 
 </aside>
-
-
 
 <!-- =====================================================
      CONTEÚDO PRINCIPAL
 ===================================================== -->
 
 <main class="main-content">
-
 
     <!-- HEADER -->
 
@@ -628,8 +614,6 @@
 
 </main>
 
-
-
 <!-- Bootstrap JS -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
@@ -638,4 +622,3 @@
 </body>
 
 </html>
-```
