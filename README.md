@@ -108,7 +108,7 @@ docker compose up --build -d
 http://localhost:8080
 
 ---
-### 4. Encerrar
+### 3. Encerrar
 ```bash
 docker compose down
 ```
