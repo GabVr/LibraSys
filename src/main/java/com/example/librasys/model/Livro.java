@@ -4,10 +4,14 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name="livros")
 public class Livro {
@@ -30,7 +34,6 @@ public class Livro {
 
     @Column(name="ano_publicacao", nullable=false)
     @Positive (message = "O ano de publicação não pode ser um número nulo ou negativo")
-    @NotNull (message = "O ano de publicação não pode ser nula/vazia")
     private int anoPublicacao;
 
     @ManyToOne
@@ -44,61 +47,6 @@ public class Livro {
             joinColumns = @JoinColumn(name = "livro_id"),
             inverseJoinColumns = @JoinColumn(name = "autor_id")
     )
+    @NotNull (message = "O campo do autor não pode ficar vazio")
     private Set<Autor> autores = new HashSet<>();
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-    public int getAnoPublicacao() {
-        return anoPublicacao;
-    }
-
-    public void setAnoPublicacao(int anoPublicacao) {
-        this.anoPublicacao = anoPublicacao;
-    }
-
-    public Editora getEditora() {
-        return editora;
-    }
-
-    public void setEditora(Editora editora) {
-        this.editora = editora;
-    }
-
-    public Set<Autor> getAutores() {
-        return autores;
-    }
-
-    public void setAutores(Set<Autor> autores) {
-        this.autores = autores;
-    }
 }

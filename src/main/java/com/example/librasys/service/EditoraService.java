@@ -16,7 +16,6 @@ public class EditoraService {
     EditoraRepository editoraRepository;
 
     public Editora cadastrarEditora(Editora editora){
-        validarEditora(editora);
         return editoraRepository.save(editora);
     }
 
@@ -46,6 +45,4 @@ public class EditoraService {
         buscarPorId(id);
         return editoraRepository.deleteById(id);
     }
-
-    public void validarEditora(Editora editora) {}
 }

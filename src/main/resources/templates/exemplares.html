@@ -73,10 +73,14 @@
     <div class="logout">
 
         <form th:action="@{/logout}" method="post">
+
             <button type="submit" class="sidebar-link">
+
                 <i class="bi bi-box-arrow-right"></i>
                 Sair
+
             </button>
+
         </form>
 
     </div>
@@ -93,26 +97,14 @@
     <div class="page-header">
 
         <div>
+
             <h2>Exemplares</h2>
 
             <p>
                 Gerencie os exemplares físicos disponíveis na biblioteca.
             </p>
+
         </div>
-
-        <div class="user-info">
-
-            <div>
-                <strong>Gabriel Silva</strong>
-
-                <small class="d-block text-muted">
-                    Bibliotecário
-                </small>
-            </div>
-
-            <div class="user-icon">
-                <i class="bi bi-person"></i>
-            </div>
 
         </div>
 
@@ -122,8 +114,11 @@
     <!-- CONTENT -->
 
     <div class="content-card">
-        <div  class="filters">
-            <select class="form-select" style="max-width: 200px;">
+
+        <div class="filters">
+
+            <select class="form-select"
+                    style="max-width: 200px;">
 
                 <option value="">
                     Todos os status
@@ -143,12 +138,16 @@
 
             </select>
 
+
             <button
+                    type="button"
+                    id="btnNovoExemplar"
                     class="btn btn-primary px-4"
                     data-bs-toggle="modal"
                     data-bs-target="#modalExemplar">
 
                 <i class="bi bi-plus-lg"></i>
+
                 Novo exemplar
 
             </button>
@@ -180,6 +179,7 @@
 
                 </thead>
 
+
                 <tbody>
 
                 <tr th:each="exemplar : ${exemplares}">
@@ -190,7 +190,9 @@
 
                         <span class="patrimonio"
                               th:text="${exemplar.codigoPatrimonio}">
-                            EX-000001
+
+                            EX000001
+
                         </span>
 
                     </td>
@@ -202,7 +204,9 @@
 
                         <div class="book-title"
                              th:text="${exemplar.livro.titulo}">
+
                             Dom Casmurro
+
                         </div>
 
                     </td>
@@ -213,7 +217,9 @@
                     <td>
 
                         <span th:text="${exemplar.livro.isbn}">
+
                             9788535902778
+
                         </span>
 
                     </td>
@@ -227,29 +233,36 @@
                                 th:if="${exemplar.status == T(com.example.librasys.model.Status).DISPONIVEL}"
                                 class="status status-disponivel">
 
-    <i class="bi bi-check-circle-fill"></i>
-    Disponível
+                            <i class="bi bi-check-circle-fill"></i>
 
-</span>
+                            Disponível
+
+                        </span>
+
 
                         <span
                                 th:if="${exemplar.status == T(com.example.librasys.model.Status).EMPRESTADO}"
                                 class="status status-emprestado">
 
-    <i class="bi bi-clock-fill"></i>
-    Emprestado
+                            <i class="bi bi-clock-fill"></i>
 
-</span>
+                            Emprestado
+
+                        </span>
+
 
                         <span
                                 th:if="${exemplar.status == T(com.example.librasys.model.Status).MANUTENCAO}"
                                 class="status status-manutencao">
 
-    <i class="bi bi-tools"></i>
-    Manutenção
+                            <i class="bi bi-tools"></i>
 
-</span>
+                            Manutenção
+
+                        </span>
+
                     </td>
+
 
                     <!-- ACTIONS -->
 
@@ -259,17 +272,18 @@
                                 type="button"
                                 class="action-btn action-edit"
                                 title="Editar"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalExemplar">
+                                th:onclick="|editarExemplar(${exemplar.id})|">
 
                             <i class="bi bi-pencil"></i>
 
                         </button>
 
+
                         <button
                                 type="button"
                                 class="action-btn action-delete"
-                                title="Excluir">
+                                title="Excluir"
+                                th:onclick="|excluirExemplar(${exemplar.id})|">
 
                             <i class="bi bi-trash"></i>
 
@@ -291,11 +305,15 @@
                             <i class="bi bi-collection"></i>
 
                             <h5 class="mt-3">
+
                                 Nenhum exemplar cadastrado
+
                             </h5>
 
                             <p>
+
                                 Cadastre o primeiro exemplar do acervo.
+
                             </p>
 
                             <button
@@ -305,6 +323,7 @@
                                     data-bs-target="#modalExemplar">
 
                                 <i class="bi bi-plus-lg"></i>
+
                                 Cadastrar exemplar
 
                             </button>
@@ -321,47 +340,12 @@
 
         </div>
 
-
-        <!-- PAGINATION -->
-
-        <nav>
-
-            <ul class="pagination justify-content-end">
-
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">
-                        Anterior
-                    </a>
-                </li>
-
-                <li class="page-item active">
-                    <a class="page-link" href="#">
-                        1
-                    </a>
-                </li>
-
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        2
-                    </a>
-                </li>
-
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        Próxima
-                    </a>
-                </li>
-
-            </ul>
-
-        </nav>
-
     </div>
 
 </div>
 
 
-<!-- MODAL NOVO EXEMPLAR -->
+<!-- MODAL EXEMPLAR -->
 
 <div
         class="modal fade"
@@ -376,26 +360,43 @@
             <div class="modal-header">
 
                 <h5 class="modal-title">
+
                     <i class="bi bi-collection me-2"></i>
-                    Novo exemplar
+
+                    <span id="tituloModalExemplar">
+                        Novo exemplar
+                    </span>
+
                 </h5>
+
 
                 <button
                         type="button"
                         class="btn-close"
                         data-bs-dismiss="modal">
+
                 </button>
 
             </div>
 
 
-            <form th:action="@{/api/exemplares/salvar}" method="post">
+            <!-- FORM -->
+
+            <form id="formExemplar">
+
+                <!-- ID -->
+
+                <input
+                        type="hidden"
+                        id="exemplarId">
+
 
                 <!-- CSRF -->
 
-                <input type="hidden"
-                       th:name="${_csrf.parameterName}"
-                       th:value="${_csrf.token}">
+                <input
+                        type="hidden"
+                        id="csrfToken"
+                        th:value="${_csrf.token}">
 
 
                 <div class="modal-body">
@@ -404,20 +405,35 @@
 
                     <div class="mb-3">
 
-                        <label class="form-label">
+                        <label
+                                for="codigoPatrimonio"
+                                class="form-label">
+
                             Código de patrimônio
+
                         </label>
+
 
                         <input
                                 type="text"
+                                id="codigoPatrimonio"
                                 name="codigoPatrimonio"
                                 class="form-control"
                                 maxlength="8"
                                 placeholder="Ex: EX000001"
                                 required>
 
+
+                        <div
+                                id="erro-codigoPatrimonio"
+                                class="erro-validacao">
+                        </div>
+
+
                         <small class="text-muted">
+
                             Código único para identificar o exemplar.
+
                         </small>
 
                     </div>
@@ -427,27 +443,42 @@
 
                     <div class="mb-3">
 
-                        <label class="form-label">
+                        <label
+                                for="livroId"
+                                class="form-label">
+
                             Livro
+
                         </label>
 
+
                         <select
+                                id="livroId"
                                 name="livroId"
                                 class="form-select"
                                 required>
 
                             <option value="">
+
                                 Selecione o livro
+
                             </option>
+
 
                             <option
                                     th:each="livro : ${livros}"
                                     th:value="${livro.id}"
                                     th:text="${livro.titulo}">
-                                Dom Casmurro
+
                             </option>
 
                         </select>
+
+
+                        <div
+                                id="erro-livroId"
+                                class="erro-validacao">
+                        </div>
 
                     </div>
 
@@ -456,33 +487,53 @@
 
                     <div class="mb-3">
 
-                        <label class="form-label">
+                        <label
+                                for="status"
+                                class="form-label">
+
                             Status
+
                         </label>
 
+
                         <select
+                                id="status"
                                 name="status"
                                 class="form-select"
                                 required>
 
                             <option value="DISPONIVEL">
+
                                 Disponível
+
                             </option>
 
                             <option value="EMPRESTADO">
+
                                 Emprestado
+
                             </option>
 
                             <option value="MANUTENCAO">
+
                                 Manutenção
+
                             </option>
 
                         </select>
+
+
+                        <div
+                                id="erro-status"
+                                class="erro-validacao">
+                        </div>
 
                     </div>
 
                 </div>
 
+
+                <!-- FOOTER -->
 
                 <div class="modal-footer">
 
@@ -495,12 +546,17 @@
 
                     </button>
 
+
                     <button
                             type="submit"
+                            id="btnSalvarExemplar"
                             class="btn btn-primary">
 
                         <i class="bi bi-check-lg"></i>
-                        Salvar exemplar
+
+                        <span id="textoBotaoExemplar">
+                            Salvar exemplar
+                        </span>
 
                     </button>
 
@@ -514,9 +570,17 @@
 
 </div>
 
+
 <!-- BOOTSTRAP JS -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- EXEMPLARES JS -->
+
+<script th:src="@{/js/exemplares.js}"
+        src="/js/exemplares.js">
 </script>
 
 </body>

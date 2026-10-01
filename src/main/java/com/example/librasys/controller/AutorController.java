@@ -24,9 +24,9 @@ public class AutorController {
 
     @PostMapping("/salvar")
     public String salvar(
-            @RequestParam String nome,
-            @RequestParam String nacionalidade,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+           @Valid @RequestParam String nome,
+           @Valid  @RequestParam String nacionalidade,
+           @Valid @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
             LocalDate dataNascimento) {
 
         Autor autor = new Autor();

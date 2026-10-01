@@ -17,8 +17,34 @@ public class EmprestimoService {
     @Autowired
     EmprestimoRepository emprestimoRepository;
 
+
+    public static void validarDataEmprestimo(LocalDate dataEmprestimo){
+
+        if(dataEmprestimo.isAfter(LocalDate.now())){
+            throw new AtributoException("A data emprestimo deve ser posterior a hoje");
+        }
+    }
+
+    public static void validarDataDevolucao(LocalDate dataDevolucao, LocalDate dataEmprestimo){
+        if(dataDevolucao.isAfter(LocalDate.now())){
+            throw new AtributoException("A data de devolução deve ser anterior à hoje");
+        }
+
+        if(dataEmprestimo.isAfter(dataDevolucao)){
+            throw new AtributoException("A data de emprestimo não pode ser depois da data de devolução");
+        }
+    }
+
+    public static void validarDataPrevistaDevolucao(LocalDate dataPrevista, LocalDate  dataEmprestimo){
+        if (dataPrevista.isBefore(dataEmprestimo) || dataPrevista.isEqual(dataEmprestimo)) {
+            throw new AtributoException("A data prevista de devolução deve ser posterior à data de empréstimo.");
+        }
+    }
+
     public Emprestimo salvarEmprestimo(Emprestimo emprestimo){
         validarEmprestimo(emprestimo);
+
+        emprestimo.setSituacao(Situacao.PENDENTE);
         return emprestimoRepository.save(emprestimo);
     }
 
@@ -26,8 +52,13 @@ public class EmprestimoService {
 
         Emprestimo emprestimo = buscarEmprestimoPorId(id);
 
+        validarDataDevolucao(
+                dataDevolucao,
+                emprestimo.getDataEmprestimo()
+        );
+
         emprestimo.setDataDevolucao(dataDevolucao);
-        emprestimo.setStatus(Situacao.DEVOLVIDO);
+        emprestimo.setSituacao(Situacao.DEVOLVIDO);
 
         return emprestimoRepository.save(emprestimo);
     }
@@ -50,14 +81,12 @@ public class EmprestimoService {
         EmprestimoAtualizado.setExemplar(emprestimoDadosAtualizados.getExemplar());
         EmprestimoAtualizado.setDataEmprestimo(emprestimoDadosAtualizados.getDataEmprestimo());
         EmprestimoAtualizado.setDataDevolucao(emprestimoDadosAtualizados.getDataDevolucao());
-        EmprestimoAtualizado.setStatus(emprestimoDadosAtualizados.getStatus());
+        EmprestimoAtualizado.setSituacao(emprestimoDadosAtualizados.getSituacao());
+        EmprestimoAtualizado.setDataPrevistaDevolucao(
+                emprestimoDadosAtualizados.getDataPrevistaDevolucao()
+        );
 
         return emprestimoRepository.save(EmprestimoAtualizado);
-    }
-
-
-    public EmprestimoService(EmprestimoRepository emprestimoRepository) {
-        this.emprestimoRepository = emprestimoRepository;
     }
 
     public long contarAtivos() {
@@ -82,5 +111,24 @@ public class EmprestimoService {
         return emprestimoRepository.deleteBySituacao(situacao);
     }
 
-    public void validarEmprestimo(Emprestimo emprestimo) {}
+    public void validarEmprestimo(Emprestimo emprestimo) {
+
+        if (emprestimo.getDataEmprestimo() == null) {
+            emprestimo.setDataEmprestimo(LocalDate.now());
+        }
+
+        validarDataEmprestimo(emprestimo.getDataEmprestimo());
+
+        validarDataPrevistaDevolucao(
+                emprestimo.getDataPrevistaDevolucao(),
+                emprestimo.getDataEmprestimo()
+        );
+
+        if (emprestimo.getDataDevolucao() != null) {
+            validarDataDevolucao(
+                    emprestimo.getDataDevolucao(),
+                    emprestimo.getDataEmprestimo()
+            );
+        }
+    }
 }

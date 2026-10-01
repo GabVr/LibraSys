@@ -5,12 +5,9 @@ import com.example.librasys.model.Exemplar;
 import com.example.librasys.model.Status;
 import com.example.librasys.repository.ExemplarRepository;
 import exceptions.AtributoException;
-import exceptions.EnumException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -20,7 +17,6 @@ public class ExemplarService {
     ExemplarRepository exemplarRepository;
 
     public Exemplar salvarExemplar(Exemplar exemplar){
-        validarExemplar(exemplar);
         return exemplarRepository.save(exemplar);
     }
 
@@ -62,6 +58,7 @@ public class ExemplarService {
         exemplarAtualizado.setCodigoPatrimonio(exemplarDadosAtualizados.getCodigoPatrimonio());
         exemplarAtualizado.setLivro(exemplarDadosAtualizados.getLivro());
         exemplarAtualizado.setStatus(exemplarDadosAtualizados.getStatus());
+        
 
         return exemplarRepository.save(exemplarAtualizado);
     }
@@ -75,6 +72,4 @@ public class ExemplarService {
         buscarExemplarPorStatus(status);
         return exemplarRepository.deleteByStatus(status);
     }
-
-    public void validarExemplar(Exemplar exemplar) {}
 }

@@ -24,22 +24,17 @@ formEmprestimo.addEventListener("submit", async function (event) {
 
     event.preventDefault();
 
-
     const id =
         document.getElementById("emprestimoId").value;
-
 
     const usuarioId =
         document.getElementById("usuarioId").value;
 
-
     const exemplarId =
         document.getElementById("exemplarId").value;
 
-
     const dataPrevistaDevolucao =
         document.getElementById("dataPrevistaDevolucao").value;
-
 
     const emprestimo = {
 
@@ -56,11 +51,9 @@ formEmprestimo.addEventListener("submit", async function (event) {
 
     };
 
-
     try {
 
         let resposta;
-
 
         // NOVO EMPRÉSTIMO
 
@@ -69,7 +62,6 @@ formEmprestimo.addEventListener("submit", async function (event) {
             resposta = await fetch(
                 "/api/emprestimos",
                 {
-
                     method: "POST",
 
                     headers: {
@@ -77,12 +69,10 @@ formEmprestimo.addEventListener("submit", async function (event) {
                     },
 
                     body: JSON.stringify(emprestimo)
-
                 }
             );
 
         }
-
 
         // EDITAR EMPRÉSTIMO
 
@@ -91,7 +81,6 @@ formEmprestimo.addEventListener("submit", async function (event) {
             resposta = await fetch(
                 `/api/emprestimos/atualizar?id=${id}`,
                 {
-
                     method: "PUT",
 
                     headers: {
@@ -99,12 +88,10 @@ formEmprestimo.addEventListener("submit", async function (event) {
                     },
 
                     body: JSON.stringify(emprestimo)
-
                 }
             );
 
         }
-
 
         if (resposta.ok) {
 
@@ -145,7 +132,6 @@ async function editarEmprestimo(id) {
             `/api/emprestimos/id?idEmprestimo=${id}`
         );
 
-
         if (!resposta.ok) {
 
             alert("Não foi possível carregar o empréstimo.");
@@ -154,35 +140,27 @@ async function editarEmprestimo(id) {
 
         }
 
-
         const emprestimo =
             await resposta.json();
-
 
         document.getElementById("emprestimoId").value =
             emprestimo.id;
 
-
         document.getElementById("usuarioId").value =
             emprestimo.usuario.id;
-
 
         document.getElementById("exemplarId").value =
             emprestimo.exemplar.id;
 
-
         document.getElementById("dataPrevistaDevolucao").value =
             emprestimo.dataPrevistaDevolucao || "";
-
 
         document.getElementById("textoBotaoEmprestimo")
             .textContent = "Atualizar empréstimo";
 
-
         new bootstrap.Modal(
             document.getElementById("modalEmprestimo")
         ).show();
-
 
     } catch (erro) {
 
@@ -207,7 +185,6 @@ async function excluirEmprestimo(id) {
 
     }
 
-
     try {
 
         const resposta = await fetch(
@@ -216,7 +193,6 @@ async function excluirEmprestimo(id) {
                 method: "DELETE"
             }
         );
-
 
         if (resposta.ok) {
 
@@ -245,8 +221,6 @@ async function excluirEmprestimo(id) {
 
 // ABRIR DEVOLUÇÃO
 
-// ABRIR DEVOLUÇÃO
-
 function abrirDevolucao(id) {
 
     document.getElementById("devolucaoEmprestimoId").value = id;
@@ -255,11 +229,14 @@ function abrirDevolucao(id) {
         '#formDevolucao input[name="dataDevolucao"]'
     ).value = new Date().toISOString().split("T")[0];
 
-    const modalElement = document.getElementById("modalDevolucao");
+    const modalElement =
+        document.getElementById("modalDevolucao");
 
-    const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+    const modal =
+        bootstrap.Modal.getOrCreateInstance(modalElement);
 
     modal.show();
+
 }
 
 
@@ -299,6 +276,7 @@ document
                 console.error("Erro:", erro);
 
                 alert("Não foi possível registrar a devolução.");
+
             }
 
         } catch (erro) {
@@ -306,6 +284,7 @@ document
             console.error("Erro:", erro);
 
             alert("Erro ao conectar com o servidor.");
+
         }
 
     });

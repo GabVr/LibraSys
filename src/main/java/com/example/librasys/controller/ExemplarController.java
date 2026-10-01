@@ -23,9 +23,9 @@ public class ExemplarController {
 
     @PostMapping("/salvar")
     public ResponseEntity<Void> salvarExemplar(
-            @RequestParam String codigoPatrimonio,
-            @RequestParam Integer livroId,
-            @RequestParam Status status) {
+            @Valid   @RequestParam String codigoPatrimonio,
+            @Valid   @RequestParam Integer livroId,
+            @Valid   @RequestParam Status status) {
 
         Livro livro = livroService.buscarLivroPorId(livroId);
 

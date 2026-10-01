@@ -8,7 +8,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,17 +20,14 @@ public class UsuarioController {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
     @PostMapping("/usuarios/salvar")
     public String salvar(
-            @RequestParam String nome,
-            @RequestParam String cpf,
-            @RequestParam String telefone,
-            @RequestParam String email,
-            @RequestParam String senha,
-            @RequestParam TipoUsuario tipo) {
+            @Valid   @RequestParam String nome,
+            @Valid   @RequestParam String cpf,
+            @Valid  @RequestParam String telefone,
+            @Valid  @RequestParam String email,
+            @Valid  @RequestParam String senha,
+            @Valid  @RequestParam TipoUsuario tipo) {
 
         Usuario usuario = new Usuario();
 

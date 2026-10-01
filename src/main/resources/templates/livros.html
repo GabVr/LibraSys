@@ -15,7 +15,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
           rel="stylesheet">
 
-    <link th:href="@{/css/livros.css}" href="/css/livros.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/livros.css}"
+          href="/css/livros.css"
+          rel="stylesheet"
+          type="text/css">
 
 </head>
 
@@ -24,58 +27,91 @@
 <aside class="sidebar">
 
     <div class="logo">
+
         <i class="bi bi-book-half logo-icon"></i>
+
         <h3>LibraSys</h3>
+
         <span>Sistema de Biblioteca</span>
+
     </div>
 
-    <div class="menu-title">Principal</div>
+    <div class="menu-title">
+        Principal
+    </div>
 
     <nav class="nav flex-column">
+
         <a href="/dashboard" class="nav-link">
+
             <i class="bi bi-grid"></i>
+
             Dashboard
+
         </a>
+
     </nav>
 
-    <div class="menu-title">Gerenciamento</div>
+    <div class="menu-title">
+        Gerenciamento
+    </div>
 
     <nav class="nav flex-column">
 
         <a href="/livros" class="nav-link active">
+
             <i class="bi bi-book"></i>
+
             Livros
+
         </a>
 
         <a href="/exemplares" class="nav-link">
+
             <i class="bi bi-box-seam"></i>
+
             Exemplares
+
         </a>
 
         <a href="/usuarios" class="nav-link">
+
             <i class="bi bi-people"></i>
+
             Usuários
+
         </a>
 
         <a href="/autores" class="nav-link">
+
             <i class="bi bi-person-lines-fill"></i>
+
             Autores
+
         </a>
 
         <a href="/editoras" class="nav-link">
+
             <i class="bi bi-building"></i>
+
             Editoras
+
         </a>
 
     </nav>
 
-    <div class="menu-title">Circulação</div>
+    <div class="menu-title">
+        Circulação
+    </div>
 
     <nav class="nav flex-column">
 
         <a href="/emprestimos" class="nav-link">
+
             <i class="bi bi-arrow-left-right"></i>
+
             Empréstimos
+
         </a>
 
     </nav>
@@ -87,6 +123,7 @@
             <button type="submit" class="sidebar-link">
 
                 <i class="bi bi-box-arrow-right"></i>
+
                 Sair
 
             </button>
@@ -97,51 +134,55 @@
 
 </aside>
 
+
 <main class="main-content">
 
     <div class="page-header">
 
-        <div class="filters">
+        <div>
 
             <h2>Livros</h2>
 
-            <p>Gerencie o acervo da biblioteca</p>
-
-        </div>
-
-        <div class="user-area">
-
-            <div class="text-end">
-
-                <strong>Gabriel Silva</strong>
-
-                <div class="text-muted small">
-                    Bibliotecário
-                </div>
-
-            </div>
-
-            <div class="user-avatar">
-                <i class="bi bi-person"></i>
-            </div>
+            <p>
+                Gerencie o acervo da biblioteca
+            </p>
 
         </div>
 
     </div>
 
+
     <div class="content-card">
+
+        <!-- FILTROS -->
 
         <div class="row align-items-center g-3 mb-4">
 
             <div class="col-md-3">
 
-                <select class="form-select">
+                <select
+                        class="form-select"
+                        id="filtroCategoria">
 
-                    <option selected>Todas as categorias</option>
-                    <option>Romance</option>
-                    <option>Ficção</option>
-                    <option>Tecnologia</option>
-                    <option>Literatura</option>
+                    <option value="">
+                        Todas as categorias
+                    </option>
+
+                    <option value="Romance">Romance</option>
+                    <option value="Ficção">Ficção</option>
+                    <option value="Tecnologia">Tecnologia</option>
+                    <option value="Literatura">Literatura</option>
+                    <option value="Fantasia">Fantasia</option>
+                    <option value="Suspense">Suspense</option>
+                    <option value="Terror">Terror</option>
+                    <option value="Aventura">Aventura</option>
+                    <option value="Biografia">Biografia</option>
+                    <option value="História">História</option>
+                    <option value="Ciência">Ciência</option>
+                    <option value="Filosofia">Filosofia</option>
+                    <option value="Religião">Religião</option>
+                    <option value="Infantil">Infantil</option>
+                    <option value="Didático">Didático</option>
 
                 </select>
 
@@ -150,11 +191,14 @@
             <div class="col-md-3 text-md-end">
 
                 <button
+                        type="button"
+                        id="btnNovoLivro"
                         class="btn btn-primary"
                         data-bs-toggle="modal"
                         data-bs-target="#modalLivro">
 
                     <i class="bi bi-plus-lg"></i>
+
                     Novo livro
 
                 </button>
@@ -162,6 +206,9 @@
             </div>
 
         </div>
+
+
+        <!-- TABELA -->
 
         <div class="table-responsive">
 
@@ -172,26 +219,40 @@
                 <tr>
 
                     <th>Livro</th>
+
                     <th>Autor</th>
+
                     <th>Editora</th>
+
                     <th>Categoria</th>
+
                     <th>Ano</th>
-                    <th>Exemplares</th>
-                    <th class="text-end">Ações</th>
+
+                    <th class="text-end">
+                        Ações
+                    </th>
 
                 </tr>
 
                 </thead>
 
+
                 <tbody>
 
-                <tr th:each="livro : ${livros}">
+                <tr
+                        th:each="livro : ${livros}"
+                        th:attr="data-categoria=${livro.categoria}">
+
+                    <!-- LIVRO -->
 
                     <td>
 
-                        <div class="book-title"
-                             th:text="${livro.titulo}">
+                        <div
+                                class="book-title"
+                                th:text="${livro.titulo}">
+
                             Dom Casmurro
+
                         </div>
 
                         <div class="book-isbn">
@@ -206,43 +267,78 @@
 
                     </td>
 
+
+                    <!-- AUTORES -->
+
                     <td>
 
-                        <span th:each="autor, stat : ${livro.autores}">
+                        <span
+                                th:if="${livro.autores != null and !livro.autores.isEmpty()}"
+                                th:each="autor, stat : ${livro.autores}">
 
                             <span th:text="${autor.nome}">
                                 Machado de Assis
                             </span>
 
-                            <span th:if="${!stat.last}">,</span>
+                            <span th:if="${!stat.last}">
+                                ,
+                            </span>
+
+                        </span>
+
+                        <span
+                                th:unless="${livro.autores != null and !livro.autores.isEmpty()}">
+
+                            Nenhum autor
 
                         </span>
 
                     </td>
 
-                    <td th:text="${livro.editora.nome}">
-                        Companhia das Letras
-                    </td>
 
-                    <td th:text="${livro.categoria}">
-                        Literatura
-                    </td>
-
-                    <td th:text="${livro.anoPublicacao}">
-                        1899
-                    </td>
+                    <!-- EDITORA -->
 
                     <td>
 
-                        <span class="status status-disponivel">
-                            3 disponíveis
+                        <span
+                                th:if="${livro.editora != null}"
+                                th:text="${livro.editora.nome}">
+
+                            Companhia das Letras
+
+                        </span>
+
+                        <span
+                                th:unless="${livro.editora != null}">
+
+                            Não informada
+
                         </span>
 
                     </td>
 
+
+                    <!-- CATEGORIA -->
+
+                    <td th:text="${livro.categoria}">
+
+                        Literatura
+
+                    </td>
+
+
+                    <!-- ANO -->
+
+                    <td th:text="${livro.anoPublicacao}">
+
+                        1899
+
+                    </td>
+
+
+                    <!-- AÇÕES -->
+
                     <td class="text-end">
-                        
-                        <!-- EDITAR -->
 
                         <button
                                 type="button"
@@ -253,8 +349,6 @@
                             <i class="bi bi-pencil"></i>
 
                         </button>
-
-                        <!-- EXCLUIR -->
 
                         <button
                                 type="button"
@@ -270,14 +364,37 @@
 
                 </tr>
 
+
+                <!-- NENHUM LIVRO -->
+
                 <tr th:if="${#lists.isEmpty(livros)}">
 
-                    <td colspan="7"
-                        class="text-center text-muted py-5">
+                    <td
+                            colspan="6"
+                            class="text-center text-muted py-5">
 
                         <i class="bi bi-book fs-2 d-block mb-2"></i>
 
                         Nenhum livro encontrado.
+
+                    </td>
+
+                </tr>
+
+
+                <!-- NENHUM RESULTADO DO FILTRO -->
+
+                <tr
+                        id="nenhumResultadoFiltro"
+                        style="display: none;">
+
+                    <td
+                            colspan="6"
+                            class="text-center text-muted py-5">
+
+                        <i class="bi bi-search fs-2 d-block mb-2"></i>
+
+                        Nenhum livro encontrado nesta categoria.
 
                     </td>
 
@@ -289,48 +406,18 @@
 
         </div>
 
-        <div class="d-flex justify-content-between align-items-center mt-4">
-
-            <nav>
-
-                <ul class="pagination pagination-sm mb-0">
-
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#">Anterior</a>
-                    </li>
-
-                    <li class="page-item active">
-                        <a class="page-link" href="#">1</a>
-                    </li>
-
-                    <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-
-                    <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                    </li>
-
-                    <li class="page-item">
-                        <a class="page-link" href="#">Próximo</a>
-                    </li>
-
-                </ul>
-
-            </nav>
-
-        </div>
-
     </div>
 
 </main>
 
+
 <!-- MODAL LIVRO -->
 
-<div class="modal fade"
-     id="modalLivro"
-     tabindex="-1"
-     aria-hidden="true">
+<div
+        class="modal fade"
+        id="modalLivro"
+        tabindex="-1"
+        aria-hidden="true">
 
     <div class="modal-dialog modal-lg modal-dialog-centered">
 
@@ -341,7 +428,10 @@
                 <h5 class="modal-title">
 
                     <i class="bi bi-book me-2"></i>
-                    Novo livro
+
+                    <span id="tituloModalLivro">
+                        Novo livro
+                    </span>
 
                 </h5>
 
@@ -349,21 +439,40 @@
                         type="button"
                         class="btn-close"
                         data-bs-dismiss="modal">
-
                 </button>
 
             </div>
+
 
             <div class="modal-body">
 
                 <form id="formLivro">
 
-                    <input type="hidden" id="livroId">
+                    <!-- ID -->
+
+                    <input
+                            type="hidden"
+                            id="livroId">
+
+
+                    <!-- CSRF -->
+
+                    <input
+                            type="hidden"
+                            id="csrfToken"
+                            th:value="${_csrf.token}">
+
+
+                    <!-- TÍTULO -->
 
                     <div class="mb-3">
 
-                        <label class="form-label">
+                        <label
+                                for="titulo"
+                                class="form-label">
+
                             Título
+
                         </label>
 
                         <input
@@ -373,14 +482,26 @@
                                 class="form-control"
                                 placeholder="Digite o título do livro">
 
+                        <div
+                                id="erro-titulo"
+                                class="erro-validacao">
+                        </div>
+
                     </div>
+
+
+                    <!-- ISBN / ANO -->
 
                     <div class="row">
 
                         <div class="col-md-6 mb-3">
 
-                            <label class="form-label">
+                            <label
+                                    for="isbn"
+                                    class="form-label">
+
                                 ISBN
+
                             </label>
 
                             <input
@@ -390,12 +511,22 @@
                                     class="form-control"
                                     placeholder="Ex: 9788535910663">
 
+                            <div
+                                    id="erro-isbn"
+                                    class="erro-validacao">
+                            </div>
+
                         </div>
+
 
                         <div class="col-md-6 mb-3">
 
-                            <label class="form-label">
+                            <label
+                                    for="anoPublicacao"
+                                    class="form-label">
+
                                 Ano de publicação
+
                             </label>
 
                             <input
@@ -403,43 +534,94 @@
                                     id="anoPublicacao"
                                     name="anoPublicacao"
                                     class="form-control"
-                                    placeholder="Ex: 2020">
+                                    placeholder="Ex: 2020"
+                                    min="1899"
+                                    th:max="${T(java.time.Year).now().value}">
+
+                            <div
+                                    id="erro-anoPublicacao"
+                                    class="erro-validacao">
+                            </div>
 
                         </div>
 
                     </div>
 
+
+                    <!-- CATEGORIA / EDITORA -->
+
                     <div class="row">
+
+                        <!-- CATEGORIA -->
 
                         <div class="col-md-6 mb-3">
 
-                            <label class="form-label">
+                            <label
+                                    for="categoria"
+                                    class="form-label">
+
                                 Categoria
+
                             </label>
 
-                            <input
-                                    type="text"
+                            <select
                                     id="categoria"
                                     name="categoria"
-                                    class="form-control"
-                                    placeholder="Ex: Literatura">
+                                    class="form-select">
+
+                                <option value="">
+                                    Selecione uma categoria
+                                </option>
+
+                                <option value="Literatura">Literatura</option>
+                                <option value="Romance">Romance</option>
+                                <option value="Ficção">Ficção</option>
+                                <option value="Fantasia">Fantasia</option>
+                                <option value="Suspense">Suspense</option>
+                                <option value="Terror">Terror</option>
+                                <option value="Aventura">Aventura</option>
+                                <option value="Biografia">Biografia</option>
+                                <option value="História">História</option>
+                                <option value="Ciência">Ciência</option>
+                                <option value="Tecnologia">Tecnologia</option>
+                                <option value="Filosofia">Filosofia</option>
+                                <option value="Religião">Religião</option>
+                                <option value="Infantil">Infantil</option>
+                                <option value="Didático">Didático</option>
+
+                            </select>
+
+                            <div
+                                    id="erro-categoria"
+                                    class="erro-validacao">
+                            </div>
 
                         </div>
 
+
+                        <!-- EDITORA -->
+
                         <div class="col-md-6 mb-3">
 
-                            <label class="form-label">
+                            <label
+                                    for="editoraId"
+                                    class="form-label">
+
                                 Editora
+
                             </label>
 
                             <select
                                     class="form-select"
                                     id="editoraId"
-                                    name="editora.id"
-                                    required>
+                                    name="editora.id">
 
-                                <option value="" selected>
+                                <option
+                                        value=""
+                                        selected>
+
                                     Selecione a editora
+
                                 </option>
 
                                 <option
@@ -450,14 +632,26 @@
 
                             </select>
 
+                            <div
+                                    id="erro-editoraId"
+                                    class="erro-validacao">
+                            </div>
+
                         </div>
 
                     </div>
 
+
+                    <!-- AUTORES -->
+
                     <div class="mb-3">
 
-                        <label class="form-label">
+                        <label
+                                for="autorIds"
+                                class="form-label">
+
                             Autor(es)
+
                         </label>
 
                         <select
@@ -474,6 +668,11 @@
 
                         </select>
 
+                        <div
+                                id="erro-autorIds"
+                                class="erro-validacao">
+                        </div>
+
                         <div class="form-text">
 
                             Caso o livro tenha mais de um autor,
@@ -486,6 +685,9 @@
                 </form>
 
             </div>
+
+
+            <!-- FOOTER -->
 
             <div class="modal-footer">
 
@@ -504,7 +706,10 @@
                         class="btn btn-primary">
 
                     <i class="bi bi-check-lg"></i>
-                    Salvar livro
+
+                    <span id="textoBotaoLivro">
+                        Salvar livro
+                    </span>
 
                 </button>
 
@@ -516,9 +721,15 @@
 
 </div>
 
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
 </script>
 
-<script th:src="@{/js/livros.js}"></script>
+<script
+        th:src="@{/js/livros.js}"
+        src="/js/livros.js">
+</script>
+
 </body>
+
 </html>

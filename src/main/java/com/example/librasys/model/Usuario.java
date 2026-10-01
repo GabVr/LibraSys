@@ -3,8 +3,13 @@ package com.example.librasys.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
+@Getter
+@Setter
 @Entity
 @Table(name="usuario")
 public class Usuario {
@@ -33,6 +38,7 @@ public class Usuario {
 
     @Column(name="telefone", nullable = false, unique = true)
     @NotBlank (message = "Você deve preencher o campo de telefone")
+    @Pattern(regexp = "^\\d{2}9?\\d{8}$")
     private String telefone;
 
     @Column(name="ativo")
@@ -41,69 +47,4 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoUsuario tipo;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
-
-    public TipoUsuario getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoUsuario tipo) {
-        this.tipo = tipo;
-    }
 }

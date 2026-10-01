@@ -91,6 +91,27 @@ Não é necessário instalar Java, Maven ou MySQL separadamente.
 git clone <url-do-repositorio>
 cd LibraSys
 ```
+
+## ⚙️ Configuração do Banco de Dados
+
+Antes de executar o projeto, é necessário configurar as variáveis de conexão com o banco de dados.
+
+O projeto utiliza dois arquivos de configuração:
+
+- `.env` → utilizado pelo **Docker Compose** para configurar o banco de dados e a aplicação.
+- `.env.properties` → utilizado pelo `application.properties` do Spring Boot para configurar a conexão com o banco de dados quando a aplicação é executada fora do Docker.
+
+### 🐳 Configuração para Docker
+
+Crie um arquivo `.env` e `.env.properties` na raiz do projeto:
+
+```env
+MYSQL_DATABASE=librasys
+MYSQL_USER=librasys
+MYSQL_PASSWORD=sua_senha
+MYSQL_ROOT_PASSWORD=sua_senha_root
+```
+
 ### 2. Executar
 
 ```bash
@@ -220,7 +241,15 @@ DELETE /api/emprestimos/deletarStatus?situacao=ATIVO
 
 💡 Para POST e PUT, utilize Body → raw → JSON no Postman.
 
+## ⚠️ Observação 
+
+- o caminho para acessar as telas html é:
+
+#### `http://localhost:8080/login`
+
+
 ---
+
 
 ## 🎓 Projeto acadêmico
 

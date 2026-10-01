@@ -3,14 +3,10 @@ package com.example.librasys.service;
 import com.example.librasys.model.Usuario;
 import com.example.librasys.repository.UsuarioRepository;
 import exceptions.AtributoException;
-import exceptions.EnumException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 
 @Service
@@ -24,12 +20,21 @@ public class UsuarioService {
 
 
     public Usuario salvarUsuario(Usuario usuario){
-        validarUsuario(usuario);
 
+
+        usuario.setCpf(limparCpf(usuario.getCpf()));
 
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 
         return usuarioRepository.save(usuario);
+    }
+
+    private String limparCpf(String cpf) {
+        if (cpf == null) {
+            return null;
+        }
+
+        return cpf.replaceAll("\\D", "");
     }
 
     public List<Usuario> listarUsuario(){
@@ -63,5 +68,4 @@ public class UsuarioService {
         return usuarioRepository.deleteById(id);
     }
 
-    public void validarUsuario(Usuario usuario) {}
 }

@@ -17,7 +17,6 @@ public class LivroService {
 
 
     public Livro salvarLivro(Livro livro) {
-        validarLivro(livro);
         return livroRepository.save(livro);
     }
 
@@ -43,6 +42,9 @@ public class LivroService {
         livroAtualizado.setTitulo(livroDadosAtualizados.getTitulo());
         livroAtualizado.setEditora(livroDadosAtualizados.getEditora());
         livroAtualizado.setCategoria(livroDadosAtualizados.getCategoria());
+        livroAtualizado.setIsbn(livroDadosAtualizados.getIsbn());
+        livroAtualizado.setAutores(livroDadosAtualizados.getAutores());
+        livroAtualizado.setAnoPublicacao(livroDadosAtualizados.getAnoPublicacao());
 
         return livroRepository.save(livroAtualizado);
     }
@@ -51,6 +53,4 @@ public class LivroService {
         buscarLivroPorId(id);
         return livroRepository.deleteById(id);
     }
-
-    public void validarLivro(Livro livro) {}
 }

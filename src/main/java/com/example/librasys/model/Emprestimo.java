@@ -3,10 +3,14 @@ package com.example.librasys.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import lombok.Getter;
+import lombok.Setter;
+
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
 @Entity
 @Table(name="emprestimos")
 public class Emprestimo {
@@ -39,61 +43,4 @@ public class Emprestimo {
     @Enumerated(EnumType.STRING)
     @Column(name = "status_emprestimo")
     private Situacao situacao;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Exemplar getExemplar() {
-        return exemplar;
-    }
-
-    public void setExemplar(Exemplar exemplar) {
-        this.exemplar = exemplar;
-    }
-
-    public LocalDate getDataEmprestimo() {
-        return dataEmprestimo;
-    }
-
-    public void setDataEmprestimo(LocalDate dataEmprestimo) {
-        this.dataEmprestimo = dataEmprestimo;
-    }
-
-    public LocalDate getDataDevolucao() {
-        return dataDevolucao;
-    }
-
-    public void setDataDevolucao(LocalDate dataDevolucao) {
-        this.dataDevolucao = dataDevolucao;
-    }
-
-    public LocalDate getDataPrevistaDevolucao() {
-        return dataPrevistaDevolucao;
-    }
-
-    public void setDataPrevistaDevolucao(LocalDate dataPrevistaDevolucao) {
-        this.dataPrevistaDevolucao = dataPrevistaDevolucao;
-    }
-
-    public Situacao getStatus() {
-            return  situacao;
-    }
-
-    public void setStatus(Situacao situacao) {
-        this.situacao = situacao;
-    }
 }

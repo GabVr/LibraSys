@@ -25,8 +25,8 @@ public class EmprestimoController {
 
     @PostMapping("/devolver")
     public ResponseEntity<?> devolverEmprestimo(
-            @RequestParam Integer id,
-            @RequestParam LocalDate dataDevolucao) {
+           @Valid @RequestParam Integer id,
+           @Valid @RequestParam LocalDate dataDevolucao) {
 
         return ResponseEntity.ok(
                 emprestimoService.devolverEmprestimo(id, dataDevolucao)

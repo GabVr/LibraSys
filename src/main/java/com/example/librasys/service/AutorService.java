@@ -16,6 +16,8 @@ public class AutorService {
     @Autowired
     AutorRepository autorRepository;
 
+
+
     public static void dataNascimento(LocalDate dataNascimento) {
 
         if (dataNascimento.isAfter(LocalDate.now())) {
@@ -24,7 +26,7 @@ public class AutorService {
     }
 
     public Autor salvarAutor(Autor autor) {
-        validarAutor(autor);
+        dataNascimento(autor.getDataNascimento());
         return autorRepository.save(autor);
     }
 
@@ -44,7 +46,8 @@ public class AutorService {
         Autor autorAtualizadoSalvo = buscarAutorPorId(id);
 
         autorAtualizadoSalvo.setNome(autorAtualizado.getNome());
-        autorAtualizadoSalvo.setNome(autorAtualizado.getNacionalidade());
+        autorAtualizadoSalvo.setNacionalidade(autorAtualizado.getNacionalidade());
+        autorAtualizado.setDataNascimento(autorAtualizado.getDataNascimento());
 
         return autorRepository.save(autorAtualizadoSalvo);
     }
@@ -52,11 +55,5 @@ public class AutorService {
     public Autor deletarAutorPorId(int idAutor) {
         buscarAutorPorId(idAutor);
         return autorRepository.deleteById(idAutor);
-    }
-
-    public void validarAutor(Autor autor) {
-
-        dataNascimento(autor.getDataNascimento());
-
     }
 }

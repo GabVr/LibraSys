@@ -142,18 +142,16 @@
                                 class="publisher-name"
                                 th:text="${editora.nome}">
 
-                            Companhia das Letras
-
                         </span>
 
                     </td>
 
                     <td th:text="${editora.cidade}">
-                        São Paulo
+
                     </td>
 
                     <td th:text="${editora.email}">
-                        contato@editora.com
+                    
                     </td>
 
                     <td class="text-end">
@@ -234,6 +232,8 @@
                                 class="form-control"
                                 required>
 
+                        <div id="erro-nome" class="erro-validacao"></div>
+
                     </div>
 
 
@@ -249,6 +249,8 @@
                                 name="cidade"
                                 class="form-control">
 
+                        <div id="erro-cidade" class="erro-validacao"></div>
+
                     </div>
 
 
@@ -263,6 +265,8 @@
                                 id="email"
                                 name="email"
                                 class="form-control">
+
+                        <div id="erro-email" class="erro-validacao"></div>
 
                     </div>
 
