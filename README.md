@@ -248,6 +248,12 @@ DELETE /api/emprestimos/deletarStatus?situacao=ATIVO
 #### `http://localhost:8080/login`
 
 
+
+Para logar:
+
+Email:admin@librasys.com
+Senha:admin123
+
 ---
 
 
